@@ -1,0 +1,87 @@
+<div class="row">
+  <div class="col-lg-6 offset-lg-3">
+    <div class="card">
+      <div class="card-header">
+          <strong class="card-title">Formulaire</strong>
+      </div>
+      <div class="card-body">
+        <div class="card-title">
+          <h3 class="text-center">Ajout film</h3>
+          <form [formGroup]="movieForm" (ngSubmit)="onSubmitForm()">
+            <div class="form-group">
+              <label for="movie-title" class="control-label mb-1">Titre*</label>
+              <input id="movie-title"
+                type="text"
+                class="form-control"
+                placeholder="Champ obligatoire"
+                formControlName="movieTitle">
+            </div>
+            <div class="form-group">
+              <label for="movie-description" class="control-label mb-1">Déscription*</label>
+              <textarea
+                rows="8" cols="80"
+                class="form-control"
+                formControlName="movieDescription">
+              </textarea>
+            </div>
+            <div class="form-group">
+              <label for="movie-language" class="control-label mb-1">Version</label>
+              <select id="movie-language"
+                class="form-control"
+                formControlName="movieLanguage">
+                  <option>VF</option>
+                  <option>VO</option>
+                  <option>VOSTFR</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="movie-type" class="control-label mb-1">Catégorie</label>
+              <select id="movie-type"
+                class="form-control"
+                formControlName="movieType">
+                  <option>Action</option>
+                  <option>Animation</option>
+                  <option>Aventure</option>
+                  <option>Horreur</option>
+                  <option>Thriller</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="movie-actor" class="control-label mb-1">Acteur(s)</label>
+              <input id="movie-actor"
+                type="text"
+                class="form-control"
+                formControlName="movieActor">
+            </div>
+            <div class="form-group">
+              <label for="movie-director" class="control-label mb-1">Réalisateur(s)</label>
+              <input id="movie-director"
+                type="text"
+                class="form-control"
+                formControlName="movieDirector">
+            </div>
+            <div class="form-group">
+              <label for="movie-poster" class="control-label mb-1">Posteur</label>
+              <input id="movie-poster"
+                type="file"
+                class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="movie-trailer" class="control-label mb-1">Trailer*</label>
+              <input id="movie-trailer"
+                type="text"
+                class="form-control"
+                formControlName="movieTrailer"
+                placeholder="Champ obligatoire - Lien youtube">
+            </div>
+            <div class="form-group form-actions">
+              <button type="submit" [disabled]="movieForm.invalid" class="btn btn-success mr-1">Ajouter</button>
+              <button class="btn btn-primary mr-1">Réinitialiser</button>
+              <button class="btn btn-warning">Annuler</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
