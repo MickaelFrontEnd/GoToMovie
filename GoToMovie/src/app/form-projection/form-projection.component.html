@@ -1,0 +1,58 @@
+<div class="row">
+  <div class="col-lg-6 offset-lg-2">
+    <div class="card">
+      <div class="card-header">
+          <strong class="card-title">Formulaire</strong>
+      </div>
+      <div class="card-body">
+        <div class="card-title">
+          <h3 class="text-center">Ajout séance de cinéma</h3>
+          <form [formGroup]="projectionForm" (ngSubmit)="onSubmitForm()">
+            <div class="form-group">
+              <label for="projection-title" class="control-label mb-1">Film</label>
+              <input id="projection-title"
+                type="text"
+                class="form-control"
+                [placeholder]="movie ? movie.movieTitle : ''"
+                disabled>
+            </div>
+            <div class="form-group">
+              <label for="projection-seat" class="control-label mb-1">Salle*</label>
+              <select id="projection-seat"
+                class="form-control"
+                formControlName="projectionRoom">
+                  <option *ngFor="let room of rooms" [value]="room.roomName">{{ room.roomName }}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="projection-day" class="control-label mb-1">Jour*</label>
+              <input id="projection-day"
+                type="date"
+                class="form-control"
+                formControlName="projectionDay">
+            </div>
+            <div class="form-group">
+              <label for="projection-begin" class="control-label mb-1">Heure début*</label>
+              <input id="projection-begin"
+                type="time"
+                class="form-control"
+                formControlName="projectionBegin">
+            </div>
+            <div class="form-group">
+              <label for="projection-end" class="control-label mb-1">Heure fin*</label>
+              <input id="projection-end"
+                type="time"
+                class="form-control"
+                formControlName="projectionEnd">
+            </div>
+            <div class="form-group form-actions">
+              <button type="submit" class="btn btn-success mr-1">Ajouter</button>
+              <button class="btn btn-primary mr-1">Réinitialiser</button>
+              <a class="btn btn-warning" routerLink="/movies/list">Annuler</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

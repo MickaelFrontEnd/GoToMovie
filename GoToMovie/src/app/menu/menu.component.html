@@ -8,12 +8,20 @@
               <li class="menu-title">GESTION</li>
               <li class="menu-item-has-children dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="menu-icon fa fa-trophy"></i>Séance
+                  </a>
+                  <ul class="sub-menu children dropdown-menu">
+                      <li><i class="fa fa-bars"></i><a routerLink="rooms/list">Liste</a></li>
+                      <li><i class="fa fa-calendar"></i><a routerLink="movies/list">Calendrier</a></li>
+                  </ul>
+              </li>
+              <li class="menu-item-has-children dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="menu-icon fa fa-home"></i>Salle
                   </a>
                   <ul class="sub-menu children dropdown-menu">
-                      <li><i class="fa fa-plus"></i><a href="ui-badges.html">Ajout</a></li>
-                      <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Liste</a></li>
-                      <li><i class="fa fa-calendar"></i><a href="ui-tabs.html">Calendrier</a></li>
+                      <li><i class="fa fa-plus"></i><a routerLink="rooms/add">Ajout</a></li>
+                      <li><i class="fa fa-bars"></i><a routerLink="rooms/list">Liste</a></li>
                   </ul>
               </li>
               <li class="menu-item-has-children dropdown">
@@ -21,9 +29,9 @@
                     <i class="menu-icon fa fa-film"></i>Film
                   </a>
                   <ul class="sub-menu children dropdown-menu">
-                      <li><i class="fa fa-plus"></i><a routerLink="add/movies">Ajout</a></li>
-                      <li><i class="fa fa-bars"></i><a routerLink="ui-tabs.html">Liste</a></li>
-                      <li><i class="fa fa-calendar"></i><a routerLink="ui-tabs.html">Calendrier</a></li>
+                      <li><i class="fa fa-plus"></i><a routerLink="movies/add">Ajout</a></li>
+                      <li><i class="fa fa-bars"></i><a routerLink="movies/list">Liste</a></li>
+                      <li><i class="fa fa-calendar"></i><a routerLink="movies/list">Calendrier</a></li>
                   </ul>
               </li>
               <li class="menu-item-has-children dropdown">

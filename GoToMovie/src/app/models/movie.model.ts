@@ -1,5 +1,6 @@
 export default class MovieModel {
   constructor(
+    public _id: string,
     public movieTitle: string,
     public movieDescription: string,
     public movieLanguage: string,

@@ -9,10 +9,25 @@ import { HeaderComponent } from './header/header.component';
 import { FormMovieComponent } from './form-movie/form-movie.component';
 import { Routes, RouterModule } from '@angular/router';
 import { ReactiveFormsModule  } from '@angular/forms';
+
 import MovieService from './services/movie.service';
+import RoomService from './services/room.service';
+import ProjectionService from './services/projection.service';
+
+import { ErrorModalComponent } from './error-modal/error-modal.component';
+import { ListMovieComponent } from './list-movie/list-movie.component';
+import { DetailMovieComponent } from './detail-movie/detail-movie.component';
+import { FormRoomComponent } from './form-room/form-room.component';
+import { ListRoomComponent } from './list-room/list-room.component';
+import { FormProjectionComponent } from './form-projection/form-projection.component';
 
 const appRoutes:Routes = [
-  { path: 'add/movies', component: FormMovieComponent }
+  { path: 'movies/add', component: FormMovieComponent },
+  { path: 'movies/list', component: ListMovieComponent },
+  { path: 'movies/:id', component: DetailMovieComponent },
+  { path: 'rooms/add', component: FormRoomComponent },
+  { path: 'rooms/list', component: ListRoomComponent },
+  { path: 'projections/add/:id', component: FormProjectionComponent }
 ];
 
 @NgModule({
@@ -20,7 +35,13 @@ const appRoutes:Routes = [
     AppComponent,
     MenuComponent,
     HeaderComponent,
-    FormMovieComponent
+    FormMovieComponent,
+    ErrorModalComponent,
+    ListMovieComponent,
+    DetailMovieComponent,
+    FormRoomComponent,
+    ListRoomComponent,
+    FormProjectionComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +51,9 @@ const appRoutes:Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   providers: [
-    MovieService
+    MovieService,
+    RoomService,
+    ProjectionService
   ],
   bootstrap: [AppComponent]
 })

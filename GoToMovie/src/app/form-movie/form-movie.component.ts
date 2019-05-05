@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import MovieService from '../services/movie.service';
 import MovieModel from '../models/movie.model';
+import ResponseModel from '../models/response.model';
+import { SUCCESS } from '../models/status.model';
 
 @Component({
   selector: 'app-form-movie',
@@ -13,14 +15,21 @@ export class FormMovieComponent implements OnInit {
 
   movieForm: FormGroup;
 
-
   constructor(private formBuilder: FormBuilder,
-              private movieService:MovieService,
+              private movieService: MovieService,
               private router:Router) {
   }
 
   ngOnInit() {
     this.initForm();
+    this.subscribeToService();
+  }
+
+  subscribeToService() {
+    this.movieService.postSubject.subscribe(
+      (data) => { this.onPostSuccess (data); },
+      (err) => { this.onPostError (err); }
+    );
   }
 
   initForm() {
@@ -36,25 +45,36 @@ export class FormMovieComponent implements OnInit {
   }
 
   onSubmitForm() {
-    const formValue = this.movieForm.value;
-    const newMovie = new MovieModel(
-      formValue['movieTitle'],
-      formValue['movieDescription'],
-      formValue['movieLanguage'],
-      formValue['movieType'],
-      formValue['movieActor'],
-      formValue['movieDirector'],
-      formValue['movieTrailer']
-    );
-    this.movieService.addMovie(newMovie, this.onSubmitSuccess, this.onSubmitError);
+    if(this.movieForm.valid) {
+      const formValue = this.movieForm.value;
+      const newMovie = new MovieModel(
+        '',
+        formValue['movieTitle'],
+        formValue['movieDescription'],
+        formValue['movieLanguage'],
+        formValue['movieType'],
+        formValue['movieActor'],
+        formValue['movieDirector'],
+        formValue['movieTrailer']
+      );
+      this.movieService.addMovie(newMovie);
+    }
+    else {
+      Object.keys(this.movieForm.controls).forEach(field => {
+        const control = this.movieForm.get(field);
+        control.markAsDirty({ onlySelf: true });
+      });
+    }
   }
 
-  onSubmitSuccess() {
-    this.router.navigate(['/']);
+  onPostSuccess(data: ResponseModel) {
+    if(data.status === SUCCESS) {
+      this.router.navigate(['movies/list']);
+    }
   }
 
-  onSubmitError(err) {
-    console.log(err);
+  onPostError(err) {
+    alert(err);
   }
 
 }
