@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import 'date-input-polyfill';
 import 'time-input-polyfill/auto';
 import MovieModel from '../models/movie.model';
+import { MOVIES } from '../models/movie.model';
 import RoomModel from '../models/room.model';
 import ProjectionModel from '../models/projection.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -44,12 +45,12 @@ export class FormProjectionComponent implements OnInit {
           this.movie = data[0];
         }
       },
-      (err) => { alert(err); }
+      (err) => { alert(err); console.log(err); }
     );
 
     this.roomService.getSubject.subscribe(
       (data: RoomModel[]) => { this.rooms = data },
-      (err) => { alert(err); }
+      (err) => { alert(err); console.log(err); }
     );
   }
 
@@ -62,10 +63,10 @@ export class FormProjectionComponent implements OnInit {
     this.projectionService.postSubject.subscribe(
       (data: ResponseModel) => {
         if(data.status === SUCCESS) {
-          this.router.navigate(['movies/list']);
+          this.router.navigate(['projections/list']);
         }
        },
-      (err) => { alert(err); }
+      (err) => { alert(err); console.log(err); }
     );
   }
 
@@ -81,14 +82,15 @@ export class FormProjectionComponent implements OnInit {
 
   onSubmitForm() {
     const formValue = this.projectionForm.value;
+    const id = this.movie._id as string;
     const newProjection = new ProjectionModel(
-      '',
-      this.movie._id,
+      null,
       formValue['projectionRoom'],
+      id,
       formValue['projectionDay'],
       formValue['projectionBegin'],
       formValue['projectionEnd']
-    ); console.log(newProjection);
+    );
     this.projectionService.addProjection(newProjection);
   }
 

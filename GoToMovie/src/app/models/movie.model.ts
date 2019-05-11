@@ -1,3 +1,5 @@
+export const MOVIES = 'movies'; 
+
 export default class MovieModel {
   constructor(
     public _id: string,

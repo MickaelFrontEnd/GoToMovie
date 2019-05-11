@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import ProjectionModel from '../models/projection.model';
+import ProjectionService from '../services/projection.service';
 
 @Component({
   selector: 'app-list-projection',
@@ -7,9 +9,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ListProjectionComponent implements OnInit {
 
-  constructor() { }
+  listProjections: ProjectionModel[];
+  isLoading: boolean = true;
+
+  constructor(private projectionService: ProjectionService) { }
 
   ngOnInit() {
+    this.subscribe();
+    this.initList();
+  }
+
+  subscribe() {
+    this.projectionService.getSubject.subscribe(
+      (data: ProjectionModel[]) => {
+        this.isLoading = false;
+        this.listProjections = data;
+      },
+      () => {
+        this.isLoading = false;
+      }
+    );
+  }
+
+  initList() {
+    this.projectionService.getProjection();
   }
 
 }
