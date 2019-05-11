@@ -10,7 +10,7 @@ export default class MovieService extends ServerService {
 
   constructor(private httpClient: HttpClient) { super(); }
 
-  addMovie(movie: MovieModel) {
+  addMovie(movie: FormData) {
     this.httpClient.post(MOVIES, movie)
       .subscribe(
         (data: ResponseModel) => {

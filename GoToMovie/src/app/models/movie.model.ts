@@ -7,6 +7,7 @@ export default class MovieModel {
     public movieType: string,
     public movieActor: string,
     public movieDirector: string,
-    public movieTrailer: string
+    public movieTrailer: string,
+    public moviePic: string
   ) {}
 }

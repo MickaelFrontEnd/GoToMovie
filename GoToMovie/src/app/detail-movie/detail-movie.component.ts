@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import MovieModel from '../models/movie.model';
 import MovieService from '../services/movie.service';
 import { ActivatedRoute } from '@angular/router';
+import { MOVIES_IMAGES_FOLDER } from '../services/url.service';
 
 @Component({
   selector: 'app-detail-movie',
@@ -11,11 +12,13 @@ import { ActivatedRoute } from '@angular/router';
 export class DetailMovieComponent implements OnInit {
 
   movie: MovieModel;
+  movieImageFolder: string;
 
   constructor(private movieService: MovieService,
               private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.movieImageFolder = MOVIES_IMAGES_FOLDER;
     this.subscribe();
     this.getDetail();
   }

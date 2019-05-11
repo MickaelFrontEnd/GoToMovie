@@ -1,0 +1,82 @@
+<div class="bg-dark">
+  <div class="sufee-login d-flex align-content-center flex-wrap">
+      <div class="container">
+          <div class="login-content">
+              <div class="login-logo">
+                  <a href="index.html">
+                      <a routerLink="/login" style="font-size:40px;color:#878787;">HAPPY GO TO MOVIE</a>
+                  </a>
+              </div>
+              <div class="login-form">
+                  <form [formGroup]="registerForm" (ngSubmit)="onSubmitForm()">
+                      <div class="form-group">
+                          <label for="name">Nom*</label>
+                          <input id="name"
+                            type="text"
+                            class="form-control"
+                            placeholder="Champ obligatoire"
+                            formControlName="userName">
+                      </div>
+                      <div class="form-group">
+                          <label for="firstName">Prenom*</label>
+                          <input id="firstName"
+                            type="text"
+                            class="form-control"
+                            placeholder="Champ obligatoire"
+                            formControlName="userFirstName">
+                      </div>
+                      <div class="form-group">
+                          <label for="dob">Date de naissance*</label>
+                          <input id="dob"
+                            type="date"
+                            class="form-control"
+                            placeholder="Champ obligatoire"
+                            formControlName="userDob">
+                      </div>
+                      <div class="form-group">
+                          <label for="email">Adresse email*</label>
+                          <input
+                            type="email"
+                            class="form-control"
+                            placeholder="Champ obligatoire"
+                            formControlName="userEmail">
+                      </div>
+                      <div class="form-group">
+                          <label for="pwd">Mot de passe*</label>
+                          <input id="pwd"
+                            type="password"
+                            class="form-control"
+                            placeholder="Champ obligatoire"
+                            formControlName="userPassword">
+                      </div>
+                      <div class="form-group">
+                          <label for="pwdValidation">Validation mot de passe*</label>
+                          <input id="pwdValidation"
+                            type="password"
+                            class="form-control"
+                            placeholder="Champ obligatoire"
+                            formControlName="userValidationPassword">
+                      </div>
+                      <div class="form-group">
+                          <label for="profilePic">Photo de profil</label>
+                          <input id="profilePic"
+                            type="file"
+                            class="form-control"
+                            formControlName="userProfilePic"
+                            >
+                      </div>
+                      <div class="checkbox">
+                          <label>
+                              <input type="checkbox" formControlName="userTC"> En s'inscrivant, vous acceptez <a href="#">nos termes et conditions</a>
+                          </label>
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-flat mb-3">Register</button>
+                      <div class="register-link text-center">
+                          <p>Déjà inscrit? <a routerLink="/login"> Se connecter</a></p>
+                      </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

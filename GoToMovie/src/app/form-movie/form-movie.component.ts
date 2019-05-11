@@ -14,6 +14,7 @@ import { SUCCESS } from '../models/status.model';
 export class FormMovieComponent implements OnInit {
 
   movieForm: FormGroup;
+  private moviePic: File;
 
   constructor(private formBuilder: FormBuilder,
               private movieService: MovieService,
@@ -40,7 +41,8 @@ export class FormMovieComponent implements OnInit {
       movieType: '',
       movieActor: '',
       movieDirector: '',
-      movieTrailer: ['', Validators.required]
+      movieTrailer: ['', Validators.required],
+      moviePic: [null, Validators.required]
     });
   }
 
@@ -55,9 +57,10 @@ export class FormMovieComponent implements OnInit {
         formValue['movieType'],
         formValue['movieActor'],
         formValue['movieDirector'],
-        formValue['movieTrailer']
+        formValue['movieTrailer'],
+        ''
       );
-      this.movieService.addMovie(newMovie);
+      this.movieService.addMovie(this.buildFormData(formValue));
     }
     else {
       Object.keys(this.movieForm.controls).forEach(field => {
@@ -75,6 +78,26 @@ export class FormMovieComponent implements OnInit {
 
   onPostError(err) {
     alert(err);
+  }
+
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      this.moviePic = event.target.files[0];
+      //this.movieForm.get('moviePic').setValue(file);
+    }
+  }
+
+  buildFormData(formValue): FormData {
+    let data:FormData = new FormData();
+    data.append('movieTitle', formValue['movieTitle']);
+    data.append('movieDescription', formValue['movieDescription']);
+    data.append('movieLanguage', formValue['movieLanguage']);
+    data.append('movieType', formValue['movieType']);
+    data.append('movieActor', formValue['movieActor']);
+    data.append('movieDirector', formValue['movieDirector']);
+    data.append('movieTrailer', formValue['movieTrailer']);
+    data.append('moviePic', this.moviePic);
+    return data;
   }
 
 }
