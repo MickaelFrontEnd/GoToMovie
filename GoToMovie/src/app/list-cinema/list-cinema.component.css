@@ -1,0 +1,26 @@
+h1 {
+  font-size: 30px;
+  padding-left: 1.5rem;
+}
+
+.card {
+  position: relative;
+}
+
+.card-body {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  background-color: black;
+}
+
+.card:hover .card-body {
+  opacity: 1;
+  cursor: pointer;
+}
+
+p {
+  max-height: 200px;
+  overflow: hidden;
+}

@@ -2,6 +2,32 @@
   <div class="col-lg-12">
     <div class="card">
       <div class="card-header">
+          <strong class="card-title">Filtre</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="projectionForm" (ngSubmit)="onSubmitForm()">
+          <div class="row form-group">
+            <!--<div class="col-md-3">
+              <input type="text" class="form-control" placeholder="Film" formControlName="projectionMovie">
+            </div>-->
+            <div class="col-md-3">
+              <select class="form-control" formControlName="projectionRoom">
+                <option value="">Tous</option>
+                <option *ngFor="let room of listRooms" [value]="room.roomName">{{ room.roomName  }}</option>
+              </select>
+            </div>
+            <div class="col-md-3">
+              <input type="date" class="form-control" formControlName="projectionDay">
+            </div>
+            <div class="col-md-3">
+              <button type="submit" class="btn btn-success">Rechercher</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header">
           <strong class="card-title">Liste des séances de cinéma</strong>
       </div>
       <div class="table-stats">
@@ -17,7 +43,7 @@
             <tr *ngFor="let projection of listProjections">
               <td>{{ projection.projectionMovie.movieTitle }}</td>
               <td>{{ projection.projectionRoom }}</td>
-              <td>{{ projection.projectionDay }}</td>
+              <td>{{ this.formatDate(projection.projectionDay) }}</td>
               <td>{{ projection.projectionBegin }}</td>
               <td>{{ projection.projectionEnd }}</td>
               <td><a class="btn btn-warning" routerLink="">Modifier</a></td>

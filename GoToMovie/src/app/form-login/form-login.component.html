@@ -23,12 +23,13 @@
                             placeholder="Vos mot de passe"
                             formControlName="userPassword">
                       </div>
+                      <div class="alert alert-danger" *ngIf="showError">Identifiant et/ou mot de passe invalide</div>
                       <div class="checkbox">
                           <label class="pull-right">
                               <a routerLink="/forgot-password">Mot de passe oublié?</a>
                           </label>
                       </div>
-                      <button type="submit" class="btn btn-success btn-flat mb-3">Se connecter</button>
+                      <button type="submit" class="btn btn-success btn-flat mb-3" [disabled]="disableBtn">Se connecter</button>
                       <div class="register-link mt-text-center">
                           <p>Pas encore inscrit ? <a routerLink="/register"> Inscrivez-vous ici</a></p>
                       </div>

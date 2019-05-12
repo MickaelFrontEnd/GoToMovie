@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ROOMS } from './url.service';
 import ServerService from './server.service';
 import ResponseModel from '../models/response.model';
+import ModelUtil from '../utils/model.util';
 
 @Injectable()
 export default class RoomService extends ServerService {
@@ -23,6 +24,18 @@ export default class RoomService extends ServerService {
 
   getRoom() {
     this.httpClient.get(ROOMS)
+      .subscribe(
+        (data: RoomModel[]) => {
+          this.emitGetSuccess(data);
+        },
+        (err) => { this.emitPostError(err)  },
+        () => { }
+      );
+  }
+
+  findRoom(model: RoomModel) {
+    let params = ModelUtil.getParams(model);
+    this.httpClient.get(ROOMS, { params })
       .subscribe(
         (data: RoomModel[]) => {
           this.emitGetSuccess(data);

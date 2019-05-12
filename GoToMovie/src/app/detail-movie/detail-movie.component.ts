@@ -3,6 +3,7 @@ import MovieModel from '../models/movie.model';
 import MovieService from '../services/movie.service';
 import { ActivatedRoute } from '@angular/router';
 import { MOVIES_IMAGES_FOLDER } from '../services/url.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-detail-movie',
@@ -15,7 +16,8 @@ export class DetailMovieComponent implements OnInit {
   movieImageFolder: string;
 
   constructor(private movieService: MovieService,
-              private activatedRoute: ActivatedRoute) { }
+              private activatedRoute: ActivatedRoute,
+              private domSanitizer: DomSanitizer) { }
 
   ngOnInit() {
     this.movieImageFolder = MOVIES_IMAGES_FOLDER;

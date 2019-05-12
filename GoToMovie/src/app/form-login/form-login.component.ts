@@ -15,6 +15,8 @@ export class FormLoginComponent implements OnInit {
 
   loginForm: FormGroup;
   user: UserModel;
+  showError: boolean = false;
+  disableBtn: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -52,6 +54,7 @@ export class FormLoginComponent implements OnInit {
         '',
         0
       );
+      this.disableBtn = true;
       this.userService.logUser(newUser);
     }
     else {
@@ -63,13 +66,23 @@ export class FormLoginComponent implements OnInit {
   }
 
   onPostSuccess(data: UserModel) {
+    this.disableBtn = false;
     if(data) {
       this.user = data;
-      this.router.navigate(['/movies/list']);
+      if(this.user.userType === 1) {
+        this.router.navigate(['/movies/list']);
+      }
+      else {
+        this.router.navigate(['/cinema/list']);
+      }
+    }
+    else {
+      this.showError = true;
     }
   }
 
   onPostError(err) {
+    this.disableBtn = false;
     alert(err);
   }
 

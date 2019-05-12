@@ -10,6 +10,8 @@ export default class UserService extends ServerService {
 
   constructor(private httpClient: HttpClient) { super(); }
 
+  private user:UserModel;
+
   addUser(user: UserModel) {
     this.httpClient.post(USERS, user)
       .subscribe(
@@ -25,10 +27,27 @@ export default class UserService extends ServerService {
     this.httpClient.post(USERS + '/login', user)
       .subscribe(
         (data: UserModel[]) => {
+          this.user = data[0];
           this.emitPostResponseSuccess(data[0]);
         },
         (err) => { this.emitPostResponseError(err)  },
         () => { }
       );
+  }
+
+  getUser() {
+    return this.user;
+  }
+
+  logOut() {
+    this.user = undefined;
+  }
+
+  isAuthentified() {
+    return this.user !== undefined;
+  }
+
+  isUserBackOffice() {
+    return this.isAuthentified() && this.user.userType === 1;
   }
 }

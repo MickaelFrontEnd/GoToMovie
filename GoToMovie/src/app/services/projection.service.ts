@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { PROJECTIONS } from './url.service';
 import ServerService from './server.service';
 import ResponseModel from '../models/response.model';
+import ModelUtil from '../utils/model.util';
 
 @Injectable()
 export default class ProjectionService extends ServerService {
@@ -23,6 +24,18 @@ export default class ProjectionService extends ServerService {
 
   getProjection() {
     this.httpClient.get(PROJECTIONS)
+      .subscribe(
+        (data: ProjectionModel[]) => {
+          this.emitGetSuccess(data);
+        },
+        (err) => { this.emitPostError(err)  },
+        () => { }
+      );
+  }
+
+  findProjection(model: ProjectionModel) {
+    let params = ModelUtil.getParams(model);
+    this.httpClient.get(PROJECTIONS, { params })
       .subscribe(
         (data: ProjectionModel[]) => {
           this.emitGetSuccess(data);

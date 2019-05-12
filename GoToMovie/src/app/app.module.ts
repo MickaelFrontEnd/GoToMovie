@@ -14,6 +14,8 @@ import MovieService from './services/movie.service';
 import RoomService from './services/room.service';
 import ProjectionService from './services/projection.service';
 import UserService from './services/user.service';
+import FrontGuard from './services/fo-guard.service';
+import BackGuard from './services/bo-guard.service';
 
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { ListMovieComponent } from './list-movie/list-movie.component';
@@ -26,6 +28,8 @@ import { BaseLayoutComponent } from './base-layout/base-layout.component';
 import { FormRegisterComponent } from './form-register/form-register.component';
 import { AddProjectionComponent } from './add-projection/add-projection.component';
 import { ListProjectionComponent } from './list-projection/list-projection.component';
+import { NotFoundComponent } from './not-found/not-found.component';
+import { ListCinemaComponent } from './list-cinema/list-cinema.component';
 
 const appRoutes:Routes = [
   { path: '', component: AppComponent, children: [
@@ -33,15 +37,18 @@ const appRoutes:Routes = [
     { path: 'register', component: FormRegisterComponent }
   ]},
   { path: '', component: BaseLayoutComponent, children: [
-    { path: 'movies/add', component: FormMovieComponent },
-    { path: 'movies/list', component: ListMovieComponent },
-    { path: 'movies/:id', component: DetailMovieComponent },
-    { path: 'rooms/add', component: FormRoomComponent },
-    { path: 'rooms/list', component: ListRoomComponent },
-    { path: 'projections/add', component: AddProjectionComponent },
-    { path: 'projections/add/:id', component: FormProjectionComponent },
-    { path: 'projections/list', component: ListProjectionComponent },
-  ]}
+    { path: 'movies/add', canActivate: [BackGuard], component: FormMovieComponent },
+    { path: 'movies/list', canActivate: [BackGuard], component: ListMovieComponent },
+    { path: 'movies/:id', canActivate: [BackGuard], component: DetailMovieComponent },
+    { path: 'rooms/add', canActivate: [BackGuard], component: FormRoomComponent },
+    { path: 'rooms/list', canActivate: [BackGuard], component: ListRoomComponent },
+    { path: 'projections/add', canActivate: [BackGuard], component: AddProjectionComponent },
+    { path: 'projections/add/:id', canActivate: [BackGuard], component: FormProjectionComponent },
+    { path: 'projections/list', canActivate: [BackGuard], component: ListProjectionComponent },
+    { path: 'cinema/list', component: ListCinemaComponent },
+    { path: 'not-found', component: NotFoundComponent }
+  ]},
+  { path: '**', redirectTo: 'not-found'}
 ];
 
 @NgModule({
@@ -60,7 +67,9 @@ const appRoutes:Routes = [
     BaseLayoutComponent,
     FormRegisterComponent,
     AddProjectionComponent,
-    ListProjectionComponent
+    ListProjectionComponent,
+    NotFoundComponent,
+    ListCinemaComponent
   ],
   imports: [
     BrowserModule,
@@ -73,7 +82,9 @@ const appRoutes:Routes = [
     MovieService,
     RoomService,
     ProjectionService,
-    UserService
+    UserService,
+    FrontGuard,
+    BackGuard
   ],
   bootstrap: [AppComponent]
 })
