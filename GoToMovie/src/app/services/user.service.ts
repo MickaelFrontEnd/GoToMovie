@@ -20,4 +20,15 @@ export default class UserService extends ServerService {
         () => { }
       );
   }
+
+  logUser(user: UserModel) {
+    this.httpClient.post(USERS + '/login', user)
+      .subscribe(
+        (data: UserModel[]) => {
+          this.emitPostResponseSuccess(data[0]);
+        },
+        (err) => { this.emitPostResponseError(err)  },
+        () => { }
+      );
+  }
 }

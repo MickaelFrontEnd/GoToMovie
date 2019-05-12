@@ -6,6 +6,7 @@ export default class ServerService {
   postSubject: Subject<ResponseModel> = new Subject<ResponseModel> ();
   putSubject: Subject<ResponseModel> = new Subject<ResponseModel> ();
   deleteSubject: Subject<ResponseModel> = new Subject<ResponseModel> ();
+  postResponseSubject: Subject<any> = new Subject<any>();
 
   emitGetSuccess(result: any) {
     this.getSubject.next(result);
@@ -25,6 +26,14 @@ export default class ServerService {
 
   emitPutSuccess(result: ResponseModel) {
     this.putSubject.next(result);
+  }
+
+  emitPostResponseSuccess(result: any) {
+    this.postResponseSubject.next(result);
+  }
+
+  emitPostResponseError(error: ResponseModel) {
+    this.postResponseSubject.error(error);
   }
 
   emitPutError(error: ResponseModel) {
