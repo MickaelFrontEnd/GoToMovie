@@ -10,13 +10,11 @@ export default class BackGuard implements CanActivate {
               private router: Router) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      return true;
-      /* this.userService.isUserBackOffice
       if(this.userService.isAuthentified()) {
         return true;
       }
       else {
         this.router.navigate(['/login']);
-      }*/
+      }
   }
 }

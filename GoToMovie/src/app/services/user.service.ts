@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { USERS } from './url.service';
 import ServerService from './server.service';
 import ResponseModel from '../models/response.model';
+import ModelUtil from '../utils/model.util';
 
 @Injectable()
 export default class UserService extends ServerService {
@@ -31,6 +32,29 @@ export default class UserService extends ServerService {
           this.emitPostResponseSuccess(data[0]);
         },
         (err) => { this.emitPostResponseError(err)  },
+        () => { }
+      );
+  }
+
+  searchUser() {
+    this.httpClient.get(USERS)
+      .subscribe(
+        (data: UserModel[]) => {
+          this.emitGetSuccess(data);
+        },
+        (err) => { this.emitPostError(err)  },
+        () => { }
+      );
+  }
+
+  findUser(model: UserModel) {
+    let params = ModelUtil.getParams(model);
+    this.httpClient.get(USERS, { params })
+      .subscribe(
+        (data: UserModel[]) => {
+          this.emitGetSuccess(data);
+        },
+        (err) => { this.emitPostError(err)  },
         () => { }
       );
   }

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { MOVIES } from './url.service';
 import ServerService from './server.service';
 import ResponseModel from '../models/response.model';
+import ModelUtil from '../utils/model.util';
 
 @Injectable()
 export default class MovieService extends ServerService {
@@ -34,6 +35,18 @@ export default class MovieService extends ServerService {
 
   getMovieDetail(id: string) {
     this.httpClient.get(MOVIES + '/' + id)
+      .subscribe(
+        (data: MovieModel[]) => {
+          this.emitGetSuccess(data);
+        },
+        (err) => { this.emitPostError(err)  },
+        () => { }
+      );
+  }
+
+  findMovie(model: MovieModel) {
+    let params = ModelUtil.getParams(model);
+    this.httpClient.get(MOVIES, { params })
       .subscribe(
         (data: MovieModel[]) => {
           this.emitGetSuccess(data);

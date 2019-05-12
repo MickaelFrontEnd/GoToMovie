@@ -30,6 +30,7 @@ import { AddProjectionComponent } from './add-projection/add-projection.componen
 import { ListProjectionComponent } from './list-projection/list-projection.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { ListCinemaComponent } from './list-cinema/list-cinema.component';
+import { ListUserComponent } from './list-user/list-user.component';
 
 const appRoutes:Routes = [
   { path: '', component: AppComponent, children: [
@@ -46,6 +47,7 @@ const appRoutes:Routes = [
     { path: 'projections/add/:id', canActivate: [BackGuard], component: FormProjectionComponent },
     { path: 'projections/list', canActivate: [BackGuard], component: ListProjectionComponent },
     { path: 'cinema/list', component: ListCinemaComponent },
+    { path: 'users/list',canActivate: [BackGuard], component: ListUserComponent },
     { path: 'not-found', component: NotFoundComponent }
   ]},
   { path: '**', redirectTo: 'not-found'}
@@ -69,7 +71,8 @@ const appRoutes:Routes = [
     AddProjectionComponent,
     ListProjectionComponent,
     NotFoundComponent,
-    ListCinemaComponent
+    ListCinemaComponent,
+    ListUserComponent
   ],
   imports: [
     BrowserModule,
