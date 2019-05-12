@@ -5,6 +5,7 @@ export const ROOMS = API_ROOT + 'rooms';
 export const PROJECTIONS = API_ROOT + 'projections';
 export const USERS = API_ROOT + 'users';
 export const MOVIES_IMAGES_FOLDER = DOMAIN_NAME + 'images/movies/';
+export const DASHBOARD_BO = USERS + '/getUserBoDashboard';
 
 export default {
 

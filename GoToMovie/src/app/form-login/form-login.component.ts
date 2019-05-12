@@ -70,7 +70,7 @@ export class FormLoginComponent implements OnInit {
     if(data) {
       this.user = data;
       if(this.user.userType === 1) {
-        this.router.navigate(['/movies/list']);
+        this.router.navigate(['/users/dashboard']);
       }
       else {
         this.router.navigate(['/cinema/list']);

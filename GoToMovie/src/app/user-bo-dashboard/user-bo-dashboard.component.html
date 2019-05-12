@@ -1,0 +1,80 @@
+<div class="row" *ngIf="!dashboard">
+  <div class="col-md-12 text-center">
+    <img src="assets/images/loader.gif" />
+  </div>
+</div>
+<div class="row" *ngIf="dashboard">
+  <div class="col-lg-3 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="stat-widget-five">
+          <div class="stat-icon dib flat-color-1">
+            <i class="pe-7s-film"></i>
+          </div>
+          <div class="stat-content">
+            <div class="text-left dib">
+              <div class="stat-text"><span class="count">{{ dashboard.movieNumber }}</span></div>
+              <div class="stat-heading">Films</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="stat-widget-five">
+          <div class="stat-icon dib flat-color-2">
+            <i class="pe-7s-video"></i>
+          </div>
+          <div class="stat-content">
+            <div class="text-left dib">
+              <div class="stat-text"><span class="count">{{ dashboard.projectionNumber }}</span></div>
+              <div class="stat-heading">Cinéma</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="stat-widget-five">
+          <div class="stat-icon dib flat-color-3">
+            <i class="pe-7s-map-marker"></i>
+          </div>
+          <div class="stat-content">
+            <div class="text-left dib">
+              <div class="stat-text"><span class="count">{{ dashboard.roomNumber }}</span></div>
+              <div class="stat-heading">Salles</div>
+            </div>
+          </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <div class="stat-widget-five">
+          <div class="stat-icon dib flat-color-4">
+            <i class="pe-7s-users"></i>
+          </div>
+          <div class="stat-content">
+            <div class="text-left dib">
+              <div class="stat-text"><span class="count">{{ dashboard.userNumber }}</span></div>
+              <div class="stat-heading">Clients</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="alert alert-success">
+      Bienvenu administrateur
+    </div>
+  </div>
+</div>

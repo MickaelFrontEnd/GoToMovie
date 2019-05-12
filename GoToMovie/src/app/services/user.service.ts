@@ -1,10 +1,11 @@
 import UserModel from '../models/user.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { USERS } from './url.service';
+import { USERS, DASHBOARD_BO } from './url.service';
 import ServerService from './server.service';
 import ResponseModel from '../models/response.model';
 import ModelUtil from '../utils/model.util';
+import DashboardModel from '../models/dashboard.model';
 
 @Injectable()
 export default class UserService extends ServerService {
@@ -17,6 +18,7 @@ export default class UserService extends ServerService {
     this.httpClient.post(USERS, user)
       .subscribe(
         (data: ResponseModel) => {
+          this.user = user;
           this.emitPostSuccess(data);
         },
         (err) => { this.emitPostError(err)  },
@@ -52,6 +54,17 @@ export default class UserService extends ServerService {
     this.httpClient.get(USERS, { params })
       .subscribe(
         (data: UserModel[]) => {
+          this.emitGetSuccess(data);
+        },
+        (err) => { this.emitPostError(err)  },
+        () => { }
+      );
+  }
+
+  getUserBoDashboard() {
+    this.httpClient.get(DASHBOARD_BO)
+      .subscribe(
+        (data: DashboardModel) => {
           this.emitGetSuccess(data);
         },
         (err) => { this.emitPostError(err)  },

@@ -14,6 +14,7 @@ import { SUCCESS } from '../models/status.model';
 export class FormRegisterComponent implements OnInit {
 
   registerForm: FormGroup;
+  disableBtn: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -40,7 +41,7 @@ export class FormRegisterComponent implements OnInit {
       userPassword: ['', Validators.required],
       userValidationPassword: ['', Validators.required],
       userTC: ['', Validators.required],
-      userProfilePic: [''],
+      userProfilePic: '',
     });
   }
 
@@ -48,7 +49,7 @@ export class FormRegisterComponent implements OnInit {
     if(this.registerForm.valid) {
       const formValue = this.registerForm.value;
       const newUser = new UserModel(
-        '',
+        null,
         formValue['userName'],
         formValue['userFirstName'],
         formValue['userDob'],
@@ -57,6 +58,7 @@ export class FormRegisterComponent implements OnInit {
         formValue['userProfilePic'],
         0
       );
+      this.disableBtn = true;
       this.userService.addUser(newUser);
     }
     else {
@@ -69,11 +71,12 @@ export class FormRegisterComponent implements OnInit {
 
   onPostSuccess(data: ResponseModel) {
     if(data.status === SUCCESS) {
-      this.router.navigate(['/movies/list']);
+      this.router.navigate(['/cinema/list']);
     }
   }
 
   onPostError(err) {
+    this.disableBtn = false;
     alert(err);
   }
 

@@ -16,6 +16,8 @@
                             class="form-control"
                             placeholder="Champ obligatoire"
                             formControlName="userName">
+                            <p *ngIf="registerForm.get('userName').invalid && (registerForm.submitted || registerForm.get('userName').dirty)"
+                            class="text-danger mt-2">Champ obligatoire</p>
                       </div>
                       <div class="form-group">
                           <label for="firstName">Prenom*</label>
@@ -24,6 +26,8 @@
                             class="form-control"
                             placeholder="Champ obligatoire"
                             formControlName="userFirstName">
+                            <p *ngIf="registerForm.get('userFirstName').invalid && (registerForm.submitted || registerForm.get('userFirstName').dirty)"
+                            class="text-danger mt-2">Champ obligatoire</p>
                       </div>
                       <div class="form-group">
                           <label for="dob">Date de naissance*</label>
@@ -32,6 +36,8 @@
                             class="form-control"
                             placeholder="Champ obligatoire"
                             formControlName="userDob">
+                            <p *ngIf="registerForm.get('userDob').invalid && (registerForm.submitted || registerForm.get('userDob').dirty)"
+                            class="text-danger mt-2">Champ obligatoire</p>
                       </div>
                       <div class="form-group">
                           <label for="email">Adresse email*</label>
@@ -40,6 +46,11 @@
                             class="form-control"
                             placeholder="Champ obligatoire"
                             formControlName="userEmail">
+                            <p *ngIf="registerForm.get('userEmail').invalid && (registerForm.submitted || registerForm.get('userEmail').dirty)"
+                            class="text-danger mt-2">
+                            <span *ngIf="registerForm.get('userEmail').errors.required">Champ obligatoire</span>
+                            <span *ngIf="registerForm.get('userEmail').errors.email">Adresse email non valide</span>
+                          </p>
                       </div>
                       <div class="form-group">
                           <label for="pwd">Mot de passe*</label>
@@ -48,6 +59,8 @@
                             class="form-control"
                             placeholder="Champ obligatoire"
                             formControlName="userPassword">
+                            <p *ngIf="registerForm.get('userPassword').invalid && (registerForm.submitted || registerForm.get('userPassword').dirty)"
+                            class="text-danger mt-2">Champ obligatoire</p>
                       </div>
                       <div class="form-group">
                           <label for="pwdValidation">Validation mot de passe*</label>
@@ -56,6 +69,8 @@
                             class="form-control"
                             placeholder="Champ obligatoire"
                             formControlName="userValidationPassword">
+                            <p *ngIf="registerForm.get('userValidationPassword').invalid && (registerForm.submitted || registerForm.get('userValidationPassword').dirty)"
+                            class="text-danger mt-2">Champ obligatoire</p>
                       </div>
                       <div class="form-group">
                           <label for="profilePic">Photo de profil</label>
@@ -68,6 +83,8 @@
                       <div class="checkbox">
                           <label>
                               <input type="checkbox" formControlName="userTC"> En s'inscrivant, vous acceptez <a href="#">nos termes et conditions</a>
+                              <p *ngIf="registerForm.get('userTC').invalid && (registerForm.submitted || registerForm.get('userTC').dirty)"
+                              class="text-danger mt-2">Vous devez accepter les termes et les conditions pour s'inscrire</p>
                           </label>
                       </div>
                       <button type="submit" class="btn btn-primary btn-flat mb-3">Register</button>

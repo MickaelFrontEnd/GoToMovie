@@ -14,6 +14,8 @@
                             class="form-control"
                             placeholder="Votre identifiant"
                             formControlName="userEmail">
+                            <p *ngIf="loginForm.get('userEmail').invalid && (loginForm.submitted || loginForm.get('userEmail').dirty)"
+                            class="text-danger mt-2">Champ obligatoire</p>
                       </div>
                       <div class="form-group">
                           <label for="pwd">Mot de passe</label>
@@ -22,11 +24,13 @@
                             class="form-control"
                             placeholder="Vos mot de passe"
                             formControlName="userPassword">
+                            <p *ngIf="loginForm.get('userPassword').invalid && (loginForm.submitted || loginForm.get('userPassword').dirty)"
+                            class="text-danger mt-2">Champ obligatoire</p>
                       </div>
                       <div class="alert alert-danger" *ngIf="showError">Identifiant et/ou mot de passe invalide</div>
                       <div class="checkbox">
                           <label class="pull-right">
-                              <a routerLink="/forgot-password">Mot de passe oublié?</a>
+                              <a routerLink="/login">Mot de passe oublié?</a>
                           </label>
                       </div>
                       <button type="submit" class="btn btn-success btn-flat mb-3" [disabled]="disableBtn">Se connecter</button>
