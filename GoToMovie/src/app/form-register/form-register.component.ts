@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import UserService from '../services/user.service';
 import UserModel from '../models/user.model';
 import ResponseModel from '../models/response.model';
-import { SUCCESS } from '../models/status.model';
+import { SUCCESS, ERROR } from '../models/status.model';
 
 @Component({
   selector: 'app-form-register',
@@ -28,7 +28,8 @@ export class FormRegisterComponent implements OnInit {
   subscribeToService() {
     this.userService.postSubject.subscribe(
       (data) => { this.onPostSuccess (data); },
-      (err) => { this.onPostError (err); }
+      (err) => { this.onPostError (err); },
+      () => { this.onComplete(); }
     );
   }
 
@@ -70,14 +71,22 @@ export class FormRegisterComponent implements OnInit {
   }
 
   onPostSuccess(data: ResponseModel) {
+    this.disableBtn = false;
     if(data.status === SUCCESS) {
       this.router.navigate(['/cinema/list']);
+    }
+    else {
+      alert(data.message);
     }
   }
 
   onPostError(err) {
     this.disableBtn = false;
     alert(err);
+  }
+
+  onComplete() {
+    this.disableBtn = false;
   }
 
 }

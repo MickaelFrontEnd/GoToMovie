@@ -8,7 +8,7 @@
               <div class="login-form">
                   <form [formGroup]="loginForm"  (ngSubmit)="onSubmitForm()">
                       <div class="form-group">
-                          <label for="login">Indentifiant</label>
+                          <label for="login">Identifiant</label>
                           <input id="login"
                             type="email"
                             class="form-control"
@@ -30,7 +30,7 @@
                       <div class="alert alert-danger" *ngIf="showError">Identifiant et/ou mot de passe invalide</div>
                       <div class="checkbox">
                           <label class="pull-right">
-                              <a routerLink="/login">Mot de passe oublié?</a>
+                              <a routerLink="/forgot-password">Mot de passe oublié?</a>
                           </label>
                       </div>
                       <button type="submit" class="btn btn-success btn-flat mb-3" [disabled]="disableBtn">Se connecter</button>

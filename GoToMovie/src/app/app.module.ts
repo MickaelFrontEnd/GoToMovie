@@ -32,11 +32,14 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { ListCinemaComponent } from './list-cinema/list-cinema.component';
 import { ListUserComponent } from './list-user/list-user.component';
 import { UserBoDashboardComponent } from './user-bo-dashboard/user-bo-dashboard.component';
+import { FormPasswordComponent } from './form-password/form-password.component';
 
 const appRoutes:Routes = [
   { path: '', component: AppComponent, children: [
+    { path: '', component: FormLoginComponent },
     { path: 'login', component: FormLoginComponent },
-    { path: 'register', component: FormRegisterComponent }
+    { path: 'register', component: FormRegisterComponent },
+    { path: 'forgot-password', component: FormPasswordComponent }
   ]},
   { path: '', component: BaseLayoutComponent, children: [
     { path: 'movies/add', canActivate: [BackGuard], component: FormMovieComponent },
@@ -75,7 +78,8 @@ const appRoutes:Routes = [
     NotFoundComponent,
     ListCinemaComponent,
     ListUserComponent,
-    UserBoDashboardComponent
+    UserBoDashboardComponent,
+    FormPasswordComponent
   ],
   imports: [
     BrowserModule,

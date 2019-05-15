@@ -16,6 +16,10 @@ export default class ServerService {
     this.getSubject.error(error);
   }
 
+  emitGetComplete() {
+    this.getSubject.complete();
+  }
+
   emitPostSuccess(result: ResponseModel) {
     this.postSubject.next(result);
   }
@@ -24,8 +28,16 @@ export default class ServerService {
     this.postSubject.error(error);
   }
 
+  emitPostComplete() {
+    this.postSubject.complete();
+  }
+
   emitPutSuccess(result: ResponseModel) {
     this.putSubject.next(result);
+  }
+
+  emitPutComplete() {
+    this.putSubject.complete();
   }
 
   emitPostResponseSuccess(result: any) {
@@ -34,6 +46,10 @@ export default class ServerService {
 
   emitPostResponseError(error: ResponseModel) {
     this.postResponseSubject.error(error);
+  }
+
+  emitPostResponseComplete() {
+    this.postResponseSubject.complete();
   }
 
   emitPutError(error: ResponseModel) {
@@ -46,5 +62,9 @@ export default class ServerService {
 
   emitDeleteError(error: ResponseModel) {
     this.deleteSubject.error(error);
+  }
+
+  emitDeleteComplete() {
+    this.deleteSubject.complete();
   }
 }

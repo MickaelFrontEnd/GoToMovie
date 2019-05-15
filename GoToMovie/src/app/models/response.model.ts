@@ -1,3 +1,4 @@
 export default interface ResponseModel {
-  status: string
+  status: string,
+  message?: string
 }
