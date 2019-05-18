@@ -35,6 +35,7 @@
                 <p *ngIf="getSeats().controls[i].invalid && (roomForm.submitted || getSeats().controls[i].dirty)"
                 class="text-danger">
                   <span *ngIf="getSeats().controls[i].errors.required">Champ obligatoire <br></span>
+                  <span *ngIf="getSeats().controls[i].errors.pattern">Le format doit être de la forme Lettre + Nombre sans espace (ex: A1, B21, ...)<br></span>
                   <span *ngIf="getSeats().controls[i].errors.duplicate">Cette place existe déjà</span>
                 </p>
               </div>

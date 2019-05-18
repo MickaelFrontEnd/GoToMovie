@@ -29,7 +29,7 @@ export class FormRoomComponent implements OnInit {
   initForm() {
     this.roomForm = this.formBuilder.group({
       roomName: ['', Validators.required],
-      roomSeats: this.formBuilder.array([['', [ Validators.required, this.validateSeat ] ]])
+      roomSeats: this.formBuilder.array([['', [ Validators.required, Validators.pattern('^[a-zA-z]*[0-9]*$') , this.validateSeat ] ]])
     });
   }
 
@@ -64,13 +64,17 @@ export class FormRoomComponent implements OnInit {
   }
 
   onAddSeat() {
-    const newSeat = this.formBuilder.control('', [ Validators.required, this.validateSeat ]);
+    const newSeat = this.formBuilder.control('', [ Validators.required, Validators.pattern('^[a-zA-z]*[0-9]*$'), this.validateSeat ]);
     this.getSeats().push(newSeat);
   }
 
   onRemoveSeat(index: number) {
     const seats = this.getSeats();
     seats.removeAt(index);
+    for(let i = 0; i < seats.controls.length; i++) {
+      seats.controls[i].setValue(seats.controls[i].value);
+    }
+
   }
 
   subscribe() {
