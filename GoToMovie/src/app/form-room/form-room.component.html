@@ -15,28 +15,37 @@
                 class="form-control"
                 placeholder="Champ obligatoire"
                 formControlName="roomName">
+                <p *ngIf="roomForm.get('roomName').invalid && (roomForm.submitted || roomForm.get('roomName').dirty)"
+                class="text-danger mt-2">Champ obligatoire</p>
             </div>
             <div class="form-group" formArrayName="roomSeats">
               <label for="room-seat" class="control-label mb-1">Places*</label>
-              <div class="input-group" *ngFor="let seat of getSeats().controls; let i = index">
-                <input
-                  id="room-seat"
-                  type="text"
-                  class="form-control mb-2"
-                  placeholder="Champ obligatoire"
-                  [formControlName]="i">
-                  <div class="input-group-addon mb-2" *ngIf="getSeats().length > 1"  (click)="onRemoveSeat(i)">
-                    <i class="fa fa-trash-o"></i>
-                  </div>
+              <div *ngFor="let seat of getSeats().controls; let i = index">
+                <div class="input-group">
+                  <input
+                    id="room-seat"
+                    type="text"
+                    class="form-control mb-2"
+                    placeholder="Champ obligatoire"
+                    [formControlName]="i">
+                    <div class="input-group-addon mb-2" *ngIf="getSeats().length > 1"  (click)="onRemoveSeat(i)">
+                      <i class="fa fa-trash-o"></i>
+                    </div>
+                </div>
+                <p *ngIf="getSeats().controls[i].invalid && (roomForm.submitted || getSeats().controls[i].dirty)"
+                class="text-danger">
+                  <span *ngIf="getSeats().controls[i].errors.required">Champ obligatoire <br></span>
+                  <span *ngIf="getSeats().controls[i].errors.duplicate">Cette place existe déjà</span>
+                </p>
               </div>
             </div>
             <div class="form-group">
               <button type="button" class="btn" (click)="onAddSeat()">Ajouter un autre place</button>
             </div>
             <div class="form-group form-actions">
-              <button type="submit" class="btn btn-success mr-1">Ajouter</button>
-              <button class="btn btn-primary mr-1">Réinitialiser</button>
-              <button class="btn btn-warning">Annuler</button>
+              <button type="submit" class="btn btn-success mr-1" [disabled]="disableBtn">Ajouter</button>
+              <button class="btn btn-primary mr-1" type="reset">Réinitialiser</button>
+              <a class="btn btn-warning" routerLink="/rooms/list">Annuler</a>
             </div>
           </form>
         </div>

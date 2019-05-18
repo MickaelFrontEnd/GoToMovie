@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import RoomModel from '../models/room.model';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import RoomService from '../services/room.service';
 import ResponseModel from '../models/response.model';
-import { SUCCESS } from '../models/status.model';
+import { SUCCESS, ERROR } from '../models/status.model';
 
 @Component({
   selector: 'app-form-room',
@@ -13,8 +13,9 @@ import { SUCCESS } from '../models/status.model';
 })
 export class FormRoomComponent implements OnInit {
 
-  roomForm: FormGroup;
+  roomForm: FormGroup = null;
   room: RoomModel;
+  disableBtn: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private roomService: RoomService,
@@ -28,19 +29,34 @@ export class FormRoomComponent implements OnInit {
   initForm() {
     this.roomForm = this.formBuilder.group({
       roomName: ['', Validators.required],
-      roomSeats: this.formBuilder.array([])
+      roomSeats: this.formBuilder.array([['', [ Validators.required, this.validateSeat ] ]])
     });
-    this.onAddSeat();
   }
 
   onSubmitForm() {
-    const formValue = this.roomForm.value;
-    const newRoom = new RoomModel(
-      '',
-      formValue['roomName'],
-      formValue['roomSeats'] ? formValue['roomSeats'] : []
-    );
-    this.roomService.addRoom(newRoom);
+    if(this.roomForm.valid) {
+      const formValue = this.roomForm.value;
+      const newRoom = new RoomModel(
+        null,
+        formValue['roomName'],
+        formValue['roomSeats'] ? formValue['roomSeats'] : []
+      );
+      this.disableBtn = true;
+      this.roomService.addRoom(newRoom);
+    }
+    else {
+      Object.keys(this.roomForm.controls).forEach(field => {
+        const control = this.roomForm.get(field);
+        if(control instanceof FormControl) {
+          control.markAsDirty({ onlySelf: true });
+        }
+        else if(control instanceof FormArray) {
+          for(let i = 0; i < control.controls.length; i++) {
+            control.controls[i].markAsDirty({ onlySelf: true });
+          }
+        }
+      });
+    }
   }
 
   getSeats() {
@@ -48,7 +64,7 @@ export class FormRoomComponent implements OnInit {
   }
 
   onAddSeat() {
-    const newSeat = this.formBuilder.control('', Validators.required);
+    const newSeat = this.formBuilder.control('', [ Validators.required, this.validateSeat ]);
     this.getSeats().push(newSeat);
   }
 
@@ -63,9 +79,30 @@ export class FormRoomComponent implements OnInit {
         if(data.status === SUCCESS) {
           this.router.navigate(['rooms/list']);
         }
+        else {
+          this.disableBtn = false;
+          alert(data.message);
+        }
       },
-      (err) => { alert(err); }
+      (err) => {
+        this.disableBtn = false;
+        alert(err);
+      }
     );
+  }
+
+  validateSeat = (control: AbstractControl): ValidationErrors | null => {
+    if(this.roomForm) {
+      let controls = (this.roomForm.get('roomSeats') as FormArray).controls;
+      let count = 0;
+      for(let i = 0; i < controls.length; i++) {
+        if(controls[i].value === control.value) {
+          count ++;
+        }
+      }
+      return count >= 2 ? { 'duplicate': 'Cette place existe déjà' } : null;
+    }
+    return null;
   }
 
 }
