@@ -23,8 +23,11 @@
               <textarea
                 rows="8" cols="80"
                 class="form-control"
+                placeholder="Champ obligatoire"
                 formControlName="movieDescription">
               </textarea>
+              <p *ngIf="movieForm.get('movieDescription').invalid && (movieForm.submitted || movieForm.get('movieDescription').dirty)"
+              class="text-danger mt-2">Champ obligatoire</p>
             </div>
             <div class="form-group">
               <label for="movie-language" class="control-label mb-1">Version</label>
@@ -56,14 +59,20 @@
               <input id="movie-actor"
                 type="text"
                 class="form-control"
+                placeholder="Champ obligatoire"
                 formControlName="movieActor">
+                <p *ngIf="movieForm.get('movieActor').invalid && (movieForm.submitted || movieForm.get('movieActor').dirty)"
+                class="text-danger mt-2">Champ obligatoire</p>
             </div>
             <div class="form-group">
               <label for="movie-director" class="control-label mb-1">Réalisateur(s)</label>
               <input id="movie-director"
                 type="text"
                 class="form-control"
+                placeholder="Champ obligatoire"
                 formControlName="movieDirector">
+                <p *ngIf="movieForm.get('movieDirector').invalid && (movieForm.submitted || movieForm.get('movieDirector').dirty)"
+                class="text-danger mt-2">Champ obligatoire</p>
             </div>
             <div class="form-group">
               <label for="movie-poster" class="control-label mb-1">Posteur*</label>
@@ -73,6 +82,8 @@
                 class="form-control"
                 formControlName="moviePic"
                 (change)="onFileChange($event)">
+                <p *ngIf="movieForm.get('moviePic').invalid && (movieForm.submitted || movieForm.get('moviePic').dirty)"
+                class="text-danger mt-2">Champ obligatoire</p>
             </div>
             <div class="form-group">
               <label for="movie-trailer" class="control-label mb-1">Trailer*</label>
@@ -80,12 +91,18 @@
                 type="text"
                 class="form-control"
                 formControlName="movieTrailer"
-                placeholder="Champ obligatoire - Lien youtube">
+                placeholder="Champ youtube">
+                <p *ngIf="movieForm.get('movieTrailer').invalid && (movieForm.submitted || movieForm.get('movieTrailer').dirty)"
+                  class="text-danger mt-2">
+                  <span *ngIf="movieForm.get('movieTrailer').errors.required">Champ obligatoire</span>
+                  <span *ngIf="movieForm.get('movieTrailer').errors.pattern">Lien invalide</span>
+                </p>
+                <p class="text-success mt-2">Lien youtube de la forme (https://www.youtube.com/embed/meUuk8KClWY)</p>
             </div>
             <div class="form-group form-actions">
-              <button type="submit" class="btn btn-success mr-1">Ajouter</button>
-              <button class="btn btn-primary mr-1">Réinitialiser</button>
-              <button class="btn btn-warning">Annuler</button>
+              <button type="submit" class="btn btn-success mr-1" [disabled]="disableBtn">Ajouter</button>
+              <button class="btn btn-primary mr-1" type="reset">Réinitialiser</button>
+              <a class="btn btn-warning" routerLink="/movies/list">Annuler</a>
             </div>
           </form>
         </div>

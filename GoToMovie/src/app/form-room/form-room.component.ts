@@ -100,7 +100,7 @@ export class FormRoomComponent implements OnInit {
       let controls = (this.roomForm.get('roomSeats') as FormArray).controls;
       let count = 0;
       for(let i = 0; i < controls.length; i++) {
-        if(controls[i].value === control.value) {
+        if(control.value !== '' && controls[i].value === control.value) {
           count ++;
         }
       }

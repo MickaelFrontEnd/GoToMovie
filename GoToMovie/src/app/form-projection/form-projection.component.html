@@ -30,6 +30,8 @@
                 type="date"
                 class="form-control"
                 formControlName="projectionDay">
+                <p *ngIf="projectionForm.get('projectionDay').invalid && (projectionForm.submitted || projectionForm.get('projectionDay').dirty)"
+                class="text-danger mt-2">Champ obligatoire</p>
             </div>
             <div class="form-group">
               <label for="projection-begin" class="control-label mb-1">Heure début*</label>
@@ -37,6 +39,11 @@
                 type="time"
                 class="form-control"
                 formControlName="projectionBegin">
+                <p *ngIf="projectionForm.get('projectionBegin').invalid && (projectionForm.submitted || projectionForm.get('projectionBegin').dirty)"
+                  class="text-danger mt-2">
+                  <span *ngIf="projectionForm.get('projectionBegin').errors.required">Champ obligatoire <br></span>
+                  <span *ngIf="projectionForm.get('projectionBegin').errors.timeInvalid">Doit être inferieur au date fin <br></span>
+                </p>
             </div>
             <div class="form-group">
               <label for="projection-end" class="control-label mb-1">Heure fin*</label>
@@ -44,11 +51,16 @@
                 type="time"
                 class="form-control"
                 formControlName="projectionEnd">
+                <p *ngIf="projectionForm.get('projectionEnd').invalid && (projectionForm.submitted || projectionForm.get('projectionEnd').dirty)"
+                  class="text-danger mt-2">
+                  <span *ngIf="projectionForm.get('projectionEnd').errors.required">Champ obligatoire <br></span>
+                  <span *ngIf="projectionForm.get('projectionEnd').errors.timeInvalid">Doit être superieur au date début <br></span>
+                </p>
             </div>
             <div class="form-group form-actions">
-              <button type="submit" class="btn btn-success mr-1">Ajouter</button>
-              <button class="btn btn-primary mr-1">Réinitialiser</button>
-              <a class="btn btn-warning" routerLink="/movies/list">Annuler</a>
+              <button type="submit" class="btn btn-success mr-1" [disabled]="disableBtn">Ajouter</button>
+              <button class="btn btn-primary mr-1" type="reset">Réinitialiser</button>
+              <a class="btn btn-warning" routerLink="/projections/list">Annuler</a>
             </div>
           </form>
         </div>

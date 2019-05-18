@@ -41,7 +41,7 @@
               <th colspan="3" class="text-center">Action</th>
             </tr>
             <tr *ngFor="let projection of listProjections">
-              <td>{{ projection.projectionMovie.movieTitle }}</td>
+              <td><a routerLink="/movies/{{ projection.projectionMovie._id }}">{{ projection.projectionMovie.movieTitle }}</a></td>
               <td>{{ projection.projectionRoom }}</td>
               <td>{{ this.formatDate(projection.projectionDay) }}</td>
               <td>{{ projection.projectionBegin }}</td>

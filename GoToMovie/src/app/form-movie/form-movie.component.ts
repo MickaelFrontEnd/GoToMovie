@@ -15,6 +15,7 @@ export class FormMovieComponent implements OnInit {
 
   movieForm: FormGroup;
   private moviePic: File;
+  disableBtn: boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private movieService: MovieService,
@@ -37,12 +38,12 @@ export class FormMovieComponent implements OnInit {
     this.movieForm = this.formBuilder.group({
       movieTitle: ['', Validators.required],
       movieDescription: ['', Validators.required],
-      movieLanguage: '',
-      movieType: '',
-      movieActor: '',
-      movieDirector: '',
-      movieTrailer: ['', Validators.required],
-      moviePic: [null, Validators.required]
+      movieLanguage: 'VF',
+      movieType: 'Action',
+      movieActor: ['', Validators.required],
+      movieDirector: ['', Validators.required],
+      movieTrailer: ['', [ Validators.required, Validators.pattern('^(https:\/\/www\.youtube\.com\/embed\/)([a-zA-Z0-9_-]*)$') ] ],
+      moviePic: [null, [Validators.required]]
     });
   }
 
@@ -50,7 +51,7 @@ export class FormMovieComponent implements OnInit {
     if(this.movieForm.valid) {
       const formValue = this.movieForm.value;
       const newMovie = new MovieModel(
-        '',
+        null,
         formValue['movieTitle'],
         formValue['movieDescription'],
         formValue['movieLanguage'],
@@ -60,6 +61,7 @@ export class FormMovieComponent implements OnInit {
         formValue['movieTrailer'],
         ''
       );
+      this.disableBtn = true;
       this.movieService.addMovie(this.buildFormData(formValue));
     }
     else {
@@ -71,19 +73,20 @@ export class FormMovieComponent implements OnInit {
   }
 
   onPostSuccess(data: ResponseModel) {
+    this.disableBtn = false;
     if(data.status === SUCCESS) {
       this.router.navigate(['movies/list']);
     }
   }
 
   onPostError(err) {
+    this.disableBtn = false;
     alert(err);
   }
 
   onFileChange(event) {
     if (event.target.files.length > 0) {
       this.moviePic = event.target.files[0];
-      //this.movieForm.get('moviePic').setValue(file);
     }
   }
 

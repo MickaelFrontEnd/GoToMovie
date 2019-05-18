@@ -47,7 +47,7 @@
               <td>{{ user.userName }}</td>
               <td>{{ user.userFirstName }}</td>
               <td>{{ this.formatDob(user.userDob) }}</td>
-              <td>{{ user.userEmail }}</td>
+              <td style="text-transform: none">{{ user.userEmail }}</td>
               <td>{{ user.userType === 0 ? 'Client' : 'Utilisateur BO' }}</td>
             </tr>
             <tr *ngIf="isLoading"><td colspan="8" class="text-center"><img src="assets/images/loader.gif" /></td></tr>
