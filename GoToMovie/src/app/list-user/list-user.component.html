@@ -37,6 +37,7 @@
       <div class="table-stats">
           <table class="table">
             <tr>
+              <th>Photo</th>
               <th>Nom</th>
               <th>Prénom</th>
               <th>Date de naissance</th>
@@ -44,6 +45,7 @@
               <th>Type</th>
             </tr>
             <tr *ngFor="let user of listUsers">
+              <td><img [src]="userImageFolder + user.userProfilePic"/></td>
               <td>{{ user.userName }}</td>
               <td>{{ user.userFirstName }}</td>
               <td>{{ this.formatDob(user.userDob) }}</td>

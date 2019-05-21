@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy  } from '@angular/core';
 import RoomModel from '../models/room.model';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import RoomService from '../services/room.service';
 import ResponseModel from '../models/response.model';
 import { SUCCESS, ERROR } from '../models/status.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-room',
   templateUrl: './form-room.component.html',
   styleUrls: ['./form-room.component.css']
 })
-export class FormRoomComponent implements OnInit {
+export class FormRoomComponent implements OnInit, OnDestroy {
 
   roomForm: FormGroup = null;
   room: RoomModel;
   disableBtn: boolean = false;
+  subscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               private roomService: RoomService,
@@ -24,6 +26,10 @@ export class FormRoomComponent implements OnInit {
   ngOnInit() {
     this.subscribe();
     this.initForm();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe();
   }
 
   initForm() {
@@ -80,7 +86,7 @@ export class FormRoomComponent implements OnInit {
   }
 
   subscribe() {
-    this.roomService.postSubject.subscribe(
+    this.subscription = this.roomService.postSubject.subscribe(
       (data: ResponseModel) => {
         if(data.status === SUCCESS) {
           this.router.navigate(['rooms/list']);
@@ -96,6 +102,11 @@ export class FormRoomComponent implements OnInit {
       }
     );
   }
+
+  unsubscribe() {
+    this.subscription.unsubscribe();
+  }
+
 
   validateSeat = (control: AbstractControl): ValidationErrors | null => {
     if(this.roomForm) {

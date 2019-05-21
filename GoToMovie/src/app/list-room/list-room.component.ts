@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import RoomModel from '../models/room.model';
 import RoomService from '../services/room.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-room',
@@ -13,6 +14,7 @@ export class ListRoomComponent implements OnInit {
   listRooms: RoomModel[];
   isLoading: boolean = true;
   roomForm: FormGroup;
+  subscription: Subscription;
 
   constructor(private roomService: RoomService,
               private formBuilder: FormBuilder) { }
@@ -23,6 +25,10 @@ export class ListRoomComponent implements OnInit {
     this.initForm();
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
   initForm() {
     this.roomForm = this.formBuilder.group({
       roomName: [''],
@@ -30,12 +36,16 @@ export class ListRoomComponent implements OnInit {
   }
 
   subscribe() {
-    this.roomService.getSubject.subscribe(
+    this.subscription = this.roomService.getSubject.subscribe(
       (data: RoomModel[]) => {
         this.isLoading = false;
         this.listRooms = data;
       }
     );
+  }
+
+  unsubscribe() {
+    this.subscription.unsubscribe();
   }
 
   initList() {

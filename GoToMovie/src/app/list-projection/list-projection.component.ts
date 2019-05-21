@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import ProjectionModel from '../models/projection.model';
 import RoomModel from '../models/room.model';
 import ProjectionService from '../services/projection.service';
@@ -6,13 +6,14 @@ import RoomService from '../services/room.service';
 import UserService from '../services/user.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MOVIES_IMAGES_FOLDER } from '../services/url.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-projection',
   templateUrl: './list-projection.component.html',
   styleUrls: ['./list-projection.component.css']
 })
-export class ListProjectionComponent implements OnInit {
+export class ListProjectionComponent implements OnInit, OnDestroy {
 
   listProjections: ProjectionModel[];
   listRooms: RoomModel[];
@@ -20,6 +21,7 @@ export class ListProjectionComponent implements OnInit {
   projectionForm: FormGroup;
   movieImageFolder: string;
   isUserBackOffice: boolean = false;
+  subscription: Subscription;
 
   constructor(private projectionService: ProjectionService,
               private roomService: RoomService,
@@ -31,6 +33,10 @@ export class ListProjectionComponent implements OnInit {
     this.subscribe();
     this.initList();
     this.initForm();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe();
   }
 
   initData() {
@@ -50,7 +56,7 @@ export class ListProjectionComponent implements OnInit {
   }
 
   subscribe() {
-    this.projectionService.getSubject.subscribe(
+    this.subscription = this.projectionService.getSubject.subscribe(
       (data: ProjectionModel[]) => {
         this.isLoading = false;
         this.listProjections = data;
@@ -68,6 +74,10 @@ export class ListProjectionComponent implements OnInit {
         alert(err);
       }
     );
+  }
+
+  unsubscribe() {
+    this.subscription.unsubscribe();
   }
 
   initList() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import 'date-input-polyfill';
 import 'time-input-polyfill/auto';
 import MovieModel from '../models/movie.model';
@@ -12,18 +12,22 @@ import MovieService from '../services/movie.service';
 import RoomService from '../services/room.service';
 import ResponseModel from '../models/response.model';
 import { SUCCESS } from '../models/status.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-projection',
   templateUrl: './form-projection.component.html',
   styleUrls: ['./form-projection.component.css']
 })
-export class FormProjectionComponent implements OnInit {
+export class FormProjectionComponent implements OnInit, OnDestroy {
 
   projectionForm: FormGroup = null;
   movie: MovieModel;
   rooms: RoomModel[];
   disableBtn: boolean = false;
+  subscriptionProjection: Subscription;
+  subscriptionMovie: Subscription;
+  subscriptionRoom: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               private projectionService: ProjectionService,
@@ -40,8 +44,12 @@ export class FormProjectionComponent implements OnInit {
     this.subscribeToService();
   }
 
+  ngOnDestroy(): void {
+    this.unsubscribe();
+  }
+
   subscribe() {
-    this.movieService.getSubject.subscribe(
+    this.subscriptionMovie = this.movieService.getSubject.subscribe(
       (data: MovieModel[]) => {
         if(data.length > 0) {
           this.movie = data[0];
@@ -50,7 +58,7 @@ export class FormProjectionComponent implements OnInit {
       (err) => { alert(err); console.log(err); }
     );
 
-    this.roomService.getSubject.subscribe(
+    this.subscriptionRoom = this.roomService.getSubject.subscribe(
       (data: RoomModel[]) => {
         this.rooms = data;
         this.projectionForm.get('projectionRoom').setValue(this.rooms[0].roomName);
@@ -59,13 +67,19 @@ export class FormProjectionComponent implements OnInit {
     );
   }
 
+  unsubscribe() {
+    this.subscriptionMovie.unsubscribe();
+    this.subscriptionRoom.unsubscribe();
+    this.subscriptionProjection.unsubscribe();
+  }
+
   initData() {
     this.movieService.getMovieDetail(this.activatedRoute.snapshot.params['id']);
     this.roomService.getRoom();
   }
 
   subscribeToService() {
-    this.projectionService.postSubject.subscribe(
+    this.subscriptionProjection = this.projectionService.postSubject.subscribe(
       (data: ResponseModel) => {
         this.disableBtn = false;
         if(data.status === SUCCESS) {

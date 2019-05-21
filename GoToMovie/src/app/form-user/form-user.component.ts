@@ -19,7 +19,7 @@ export class FormUserComponent implements OnInit {
 
   ngOnInit() {
     this.userImageFolder = USERS_IMAGES_FOLDER;
-    this.user = this.userService.user;
+    this.user = this.userService.getUser();
   }
 
   formatDob(dob: string) {

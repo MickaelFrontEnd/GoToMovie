@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import MovieModel from '../models/movie.model';
 import MovieService from '../services/movie.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MOVIES_IMAGES_FOLDER } from '../services/url.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list-movie',
   templateUrl: './list-movie.component.html',
   styleUrls: ['./list-movie.component.css']
 })
-export class ListMovieComponent implements OnInit {
+export class ListMovieComponent implements OnInit, OnDestroy {
 
   listMovies: MovieModel[];
   isLoading: boolean = true;
   movieForm: FormGroup;
   movieImageFolder: string;
+  subscription: Subscription;
 
   constructor(private movieService: MovieService,
               private formBuilder: FormBuilder) { }
@@ -24,6 +26,10 @@ export class ListMovieComponent implements OnInit {
     this.subscribe();
     this.initList();
     this.initForm();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe();
   }
 
   initForm() {
@@ -37,12 +43,16 @@ export class ListMovieComponent implements OnInit {
   }
 
   subscribe() {
-    this.movieService.getSubject.subscribe(
+    this.subscription = this.movieService.getSubject.subscribe(
       (data: MovieModel[]) => {
         this.isLoading = false;
         this.listMovies = data;
       }
     );
+  }
+
+  unsubscribe() {
+    this.subscription.unsubscribe();
   }
 
   onSubmitForm() {
