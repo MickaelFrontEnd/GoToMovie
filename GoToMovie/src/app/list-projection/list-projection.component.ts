@@ -7,6 +7,7 @@ import UserService from '../services/user.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { MOVIES_IMAGES_FOLDER } from '../services/url.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-list-projection',
@@ -24,6 +25,7 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
   subscription: Subscription;
 
   constructor(private projectionService: ProjectionService,
+              private activatedRoute: ActivatedRoute,
               private roomService: RoomService,
               private userService: UserService,
               private formBuilder: FormBuilder) { }
@@ -51,7 +53,7 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
       movieType: [''],
       projectionMovie: [''],
       projectionRoom: [''],
-      projectionDay: ['']
+      projectionDay: [this.activatedRoute.snapshot.params['date'] ? this.activatedRoute.snapshot.params['date'] : '']
     });
   }
 
@@ -61,7 +63,8 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
         this.isLoading = false;
         this.listProjections = data;
       },
-      () => {
+      (err) => {
+        alert('Une erreur s\'est produite, veuillez contactez l\'administrateur');
         this.isLoading = false;
       }
     );
@@ -81,7 +84,20 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
   }
 
   initList() {
-    this.projectionService.getProjection();
+    if(this.activatedRoute.snapshot.params['date']) {
+      const newProjection = new ProjectionModel(
+        null,
+        '',
+        '',
+        this.activatedRoute.snapshot.params['date'],
+        '',
+        ''
+      );
+      this.projectionService.findProjection(newProjection);
+    }
+    else {
+      this.projectionService.getProjection();
+    }
     this.roomService.getRoom();
   }
 

@@ -5,6 +5,7 @@ import ProjectionService from '../services/projection.service';
 import ProjectionModel from '../models/projection.model';
 import { ProjectionListModel } from '../models/projection.model';
 import { Subject, Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-calendar-projection',
@@ -20,7 +21,8 @@ export class CalendarProjectionComponent implements OnInit, OnDestroy {
   activeDayIsOpen:boolean = false;
   subscription: Subscription;
 
-  constructor(private projectionService: ProjectionService) { }
+  constructor(private projectionService: ProjectionService,
+              private router: Router) { }
 
   ngOnInit() {
     this.subscribe();
@@ -65,7 +67,16 @@ export class CalendarProjectionComponent implements OnInit, OnDestroy {
   }
 
   onDayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
-    this.activeDayIsOpen = true;
+    if(events.length !== 0) {
+      let year = date.getFullYear();
+      let month = date.getMonth().toString().split('').length === 1 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1;
+      let day = date.getDate().toString().split('').length === 1 ? '0' + date.getDate() : date.getDate();
+      let url = '/projections/list/' + year + '-' + month + '-' + day;
+      this.router.navigate([url]);
+    }
+    else {
+      alert('Aucune séance de cinéma prevu pour cette date');
+    }
   }
 
 }

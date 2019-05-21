@@ -63,7 +63,6 @@
               <th>Jour</th>
               <th>Heure début</th>
               <th>Heure fin</th>
-              <!--<th colspan="3" class="text-center">Action</th>-->
             </tr>
             <tr *ngFor="let projection of listProjections">
               <td><img [src]="movieImageFolder + '' + projection.projectionMovie.moviePic"/></td>
@@ -74,8 +73,6 @@
               <td>{{ this.formatDate(projection.projectionDay) }}</td>
               <td>{{ projection.projectionBegin }}</td>
               <td>{{ projection.projectionEnd }}</td>
-              <!--<td><a class="btn btn-warning" routerLink="">Modifier</a></td>
-              <td><button class="btn btn-danger">Supprimer</button></td>-->
             </tr>
             <tr *ngIf="isLoading"><td colspan="8" class="text-center"><img src="assets/images/loader.gif" /></td></tr>
           </table>
