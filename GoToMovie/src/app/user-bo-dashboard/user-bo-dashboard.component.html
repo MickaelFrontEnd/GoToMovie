@@ -4,7 +4,12 @@
   </div>
 </div>
 <div class="row" *ngIf="dashboard">
-  <div class="col-lg-3 col-md-6">
+  <div class="col-md-12">
+    <div class="alert alert-success">
+      Bienvenu administrateur
+    </div>
+  </div>
+  <div class="col-lg-3 col-md-6 clickable" routerLink="/movies/list">
     <div class="card">
       <div class="card-body">
         <div class="stat-widget-five">
@@ -21,7 +26,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6">
+  <div class="col-lg-3 col-md-6 clickable" routerLink="/projections/list">
     <div class="card">
       <div class="card-body">
         <div class="stat-widget-five">
@@ -38,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6">
+  <div class="col-lg-3 col-md-6 clickable" routerLink="/rooms/list">
     <div class="card">
       <div class="card-body">
         <div class="stat-widget-five">
@@ -55,7 +60,7 @@
         </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6">
+  <div class="col-lg-3 col-md-6 clickable" routerLink="/users/list">
     <div class="card">
       <div class="card-body">
         <div class="stat-widget-five">
@@ -65,7 +70,7 @@
           <div class="stat-content">
             <div class="text-left dib">
               <div class="stat-text"><span class="count">{{ dashboard.userNumber }}</span></div>
-              <div class="stat-heading">Clients</div>
+              <div class="stat-heading">Utilisateurs</div>
             </div>
           </div>
         </div>
@@ -73,8 +78,6 @@
     </div>
   </div>
   <div class="col-md-12">
-    <div class="alert alert-success">
-      Bienvenu administrateur
-    </div>
+    <app-calendar-projection></app-calendar-projection>
   </div>
 </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import MovieModel from '../models/movie.model';
 import MovieService from '../services/movie.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { MOVIES_IMAGES_FOLDER } from '../services/url.service';
 
 @Component({
   selector: 'app-list-movie',
@@ -13,11 +14,13 @@ export class ListMovieComponent implements OnInit {
   listMovies: MovieModel[];
   isLoading: boolean = true;
   movieForm: FormGroup;
+  movieImageFolder: string;
 
   constructor(private movieService: MovieService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.movieImageFolder = MOVIES_IMAGES_FOLDER;
     this.subscribe();
     this.initList();
     this.initForm();

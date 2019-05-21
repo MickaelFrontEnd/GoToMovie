@@ -24,16 +24,14 @@
       <div class="table-stats">
           <table class="table">
             <tr>
-              <th style="width:20%;">Nom</th>
-              <th style="width:40%;">Places</th>
-              <th colspan="3" class="text-center">Action</th>
+              <th>Nom</th>
+              <th>Places</th>
+              <th>Location</th>
             </tr>
             <tr *ngFor="let room of listRooms">
               <td>{{ room.roomName }}</td>
               <td><span *ngFor="let seat of room.roomSeats">{{ seat }}, </span></td>
-              <td><a class="btn btn-primary">Calendrier</a></td>
-              <td><a class="btn btn-warning">Modifier</a></td>
-              <td><button class="btn btn-danger">Supprimer</button></td>
+              <td style="text-transform:none;">{{ room.roomLocation }}</td>
             </tr>
             <tr *ngIf="isLoading"><td colspan="8" class="text-center"><img src="assets/images/loader.gif" /></td></tr>
           </table>

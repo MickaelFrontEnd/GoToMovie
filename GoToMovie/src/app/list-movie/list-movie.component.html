@@ -51,22 +51,24 @@
       <div class="table-stats">
           <table class="table">
             <tr>
+              <th>Posteur</th>
               <th>Titre</th>
               <th>Langue</th>
-              <th>Type</th>
+              <th>Genre</th>
               <th>Acteur</th>
               <th>Réalisateur</th>
-              <th colspan="3" class="text-center">Action</th>
+              <th class="text-center">Action</th>
             </tr>
             <tr *ngFor="let movie of listMovies">
+              <td><img [src]="movieImageFolder + '' + movie.moviePic"/></td>
               <td><a routerLink="/movies/{{ movie._id }}">{{ movie.movieTitle }}</a></td>
               <td>{{ movie.movieLanguage }}</td>
               <td>{{ movie.movieType }}</td>
               <td>{{ movie.movieActor }}</td>
               <td>{{ movie.movieDirector }}</td>
               <td><a class="btn btn-primary" routerLink="/projections/add/{{ movie._id }}">Ajout séance</a></td>
-              <td><a class="btn btn-warning" routerLink="">Modifier</a></td>
-              <td><button class="btn btn-danger">Supprimer</button></td>
+              <!--<td><a class="btn btn-warning" routerLink="">Modifier</a></td>
+              <td><button class="btn btn-danger">Supprimer</button></td>-->
             </tr>
             <tr *ngIf="isLoading"><td colspan="8" class="text-center"><img src="assets/images/loader.gif" /></td></tr>
           </table>

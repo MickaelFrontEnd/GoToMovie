@@ -16,17 +16,24 @@
         <img src="assets/images/loader.gif" />
       </div>
       <div class="card-body" *ngIf="movie">
-        <img [src]="movie ? movieImageFolder + '' + movie.moviePic : ''" class="mb-3" />
-        <h1 class="mb-2">{{ movie ? movie.movieTitle : ''  }}</h1>
-        <p class="mb-2">{{ movie ? movie.movieDescription : ''  }}</p>
-        <ul class="ml-4">
-          <li>Langue: {{ movie ? movie.movieLanguage : '' }}</li>
-          <li>Type: {{ movie ? movie.movieType : '' }}</li>
-          <li>Acteur(s): {{ movie ? movie.movieActor : '' }}</li>
-          <li>Réalisateur(s): {{ movie ? movie.movieDirector : '' }}</li>
-        </ul>
-        <h2 class="mb-3">Trailer</h2>
-        <iframe *ngIf="movie" width="700" height="500" [src]="domSanitizer.bypassSecurityTrustResourceUrl(movie.movieTrailer)"></iframe>
+        <div class="row">
+          <div class="col-md-8">
+            <h1 class="mb-2">{{ movie ? movie.movieTitle : ''  }}</h1>
+            <p class="mb-2">{{ movie ? movie.movieDescription : ''  }}</p>
+            <h2 class="mb-3">Trailer</h2>
+            <iframe *ngIf="movie" width="500" height="500" [src]="domSanitizer.bypassSecurityTrustResourceUrl(movie.movieTrailer)"></iframe>
+          </div>
+          <div class="col-md-4 movie-post">
+            <img [src]="movie ? movieImageFolder + '' + movie.moviePic : ''" class="mb-3" />
+            <ul class="ml-3">
+              <li>Langue: {{ movie ? movie.movieLanguage : '' }}</li>
+              <li>Type: {{ movie ? movie.movieType : '' }}</li>
+              <li>Acteur(s): {{ movie ? movie.movieActor : '' }}</li>
+              <li>Réalisateur(s): {{ movie ? movie.movieDirector : '' }}</li>
+            </ul>
+            <button *ngIf="!isUserBackOffice" type="button" name="button" class="btn btn-success">Reserver mes places</button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

@@ -9,7 +9,7 @@
     <div class="col-md-3" *ngFor="let projection of listProjections">
       <div class="card">
         <img class="card-img-top" [src]="movieImageFolder + projection.projectionMovie.moviePic" alt="Card image cap">
-        <div class="card-body">
+        <div class="card-body" routerLink="/movies/{{ projection.projectionMovie._id }}">
             <h4 class="card-title mb-3 text-danger">{{ projection.projectionMovie.movieTitle }}</h4>
             <p class="card-text">{{ projection.projectionMovie.movieDescription }}</p>
             <button class="btn btn-primary">Reserver vos places</button>

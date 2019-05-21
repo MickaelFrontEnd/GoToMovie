@@ -1,0 +1,7 @@
+.clickable {
+  outline: none;
+}
+
+ .clickable:hover {
+   cursor: pointer;
+ }

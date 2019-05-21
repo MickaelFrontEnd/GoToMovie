@@ -3,7 +3,9 @@ import ProjectionModel from '../models/projection.model';
 import RoomModel from '../models/room.model';
 import ProjectionService from '../services/projection.service';
 import RoomService from '../services/room.service';
+import UserService from '../services/user.service';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { MOVIES_IMAGES_FOLDER } from '../services/url.service';
 
 @Component({
   selector: 'app-list-projection',
@@ -16,19 +18,31 @@ export class ListProjectionComponent implements OnInit {
   listRooms: RoomModel[];
   isLoading: boolean = true;
   projectionForm: FormGroup;
+  movieImageFolder: string;
+  isUserBackOffice: boolean = false;
 
   constructor(private projectionService: ProjectionService,
               private roomService: RoomService,
+              private userService: UserService,
               private formBuilder: FormBuilder) { }
 
   ngOnInit() {
+    this.initData();
     this.subscribe();
     this.initList();
     this.initForm();
   }
 
+  initData() {
+    this.movieImageFolder = MOVIES_IMAGES_FOLDER;
+    this.isUserBackOffice = this.userService.isUserBackOffice();
+  }
+
   initForm() {
     this.projectionForm = this.formBuilder.group({
+      movieTitle: [''],
+      movieLanguage: [''],
+      movieType: [''],
       projectionMovie: [''],
       projectionRoom: [''],
       projectionDay: ['']

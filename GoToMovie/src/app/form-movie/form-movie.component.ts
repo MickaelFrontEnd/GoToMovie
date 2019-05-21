@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import MovieService from '../services/movie.service';
 import MovieModel from '../models/movie.model';
 import ResponseModel from '../models/response.model';
 import { SUCCESS } from '../models/status.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-movie',
   templateUrl: './form-movie.component.html',
   styleUrls: ['./form-movie.component.css']
 })
-export class FormMovieComponent implements OnInit {
+export class FormMovieComponent implements OnInit, OnDestroy {
 
   movieForm: FormGroup;
   private moviePic: File;
   disableBtn: boolean = false;
+  subscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               private movieService: MovieService,
@@ -27,11 +29,19 @@ export class FormMovieComponent implements OnInit {
     this.subscribeToService();
   }
 
+  ngOnDestroy() {
+    this.unsubscribe();
+  }
+
   subscribeToService() {
-    this.movieService.postSubject.subscribe(
+    this.subscription = this.movieService.postSubject.subscribe(
       (data) => { this.onPostSuccess (data); },
       (err) => { this.onPostError (err); }
     );
+  }
+
+  unsubscribe() {
+    this.subscription.unsubscribe();
   }
 
   initForm() {

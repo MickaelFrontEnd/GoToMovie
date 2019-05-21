@@ -7,25 +7,47 @@
       <div class="card-body">
         <form [formGroup]="projectionForm" (ngSubmit)="onSubmitForm()">
           <div class="row form-group">
-            <!--<div class="col-md-3">
-              <input type="text" class="form-control" placeholder="Film" formControlName="projectionMovie">
-            </div>-->
-            <div class="col-md-3">
+            <div class="col-md-2">
+              <input type="text" class="form-control" placeholder="Titre" formControlName="movieTitle">
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" formControlName="movieLanguage">
+                <option value="">Tous</option>
+                <option value="VF">VF</option>
+                <option value="VO">VO</option>
+                <option value="VOSTFR">VOSTFR</option>
+              </select>
+            </div>
+            <div class="col-md-2">
+              <select class="form-control" formControlName="movieType">
+                <option value="">Tous</option>
+                <option value="Action">Action</option>
+                <option value="Animation">Animation</option>
+                <option value="Aventure">Aventure</option>
+                <option value="Comedie">Comedie</option>
+                <option value="Drame">Drame</option>
+                <option value="Horreur">Horreur</option>
+                <option value="Romantique">Romantique</option>
+                <option value="Thriller">Thriller</option>
+              </select>
+            </div>
+            <div class="col-md-2">
               <select class="form-control" formControlName="projectionRoom">
                 <option value="">Tous</option>
                 <option *ngFor="let room of listRooms" [value]="room.roomName">{{ room.roomName  }}</option>
               </select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <input type="date" class="form-control" formControlName="projectionDay">
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
               <button type="submit" class="btn btn-success">Rechercher</button>
             </div>
           </div>
         </form>
       </div>
     </div>
+    <p *ngIf="!isUserBackOffice" class="alert alert-info">Pour effectuer vos reservations, cliquez sur le titre du film :)</p>
     <div class="card">
       <div class="card-header">
           <strong class="card-title">Liste des séances de cinéma</strong>
@@ -33,21 +55,27 @@
       <div class="table-stats">
           <table class="table">
             <tr>
+              <th>Posteur</th>
               <th>Film</th>
+              <th>Langue</th>
+              <th>Genre</th>
               <th>Salle</th>
               <th>Jour</th>
               <th>Heure début</th>
               <th>Heure fin</th>
-              <th colspan="3" class="text-center">Action</th>
+              <!--<th colspan="3" class="text-center">Action</th>-->
             </tr>
             <tr *ngFor="let projection of listProjections">
+              <td><img [src]="movieImageFolder + '' + projection.projectionMovie.moviePic"/></td>
               <td><a routerLink="/movies/{{ projection.projectionMovie._id }}">{{ projection.projectionMovie.movieTitle }}</a></td>
+              <td>{{ projection.projectionMovie.movieLanguage }}</td>
+              <td>{{ projection.projectionMovie.movieType }}</td>
               <td>{{ projection.projectionRoom }}</td>
               <td>{{ this.formatDate(projection.projectionDay) }}</td>
               <td>{{ projection.projectionBegin }}</td>
               <td>{{ projection.projectionEnd }}</td>
-              <td><a class="btn btn-warning" routerLink="">Modifier</a></td>
-              <td><button class="btn btn-danger">Supprimer</button></td>
+              <!--<td><a class="btn btn-warning" routerLink="">Modifier</a></td>
+              <td><button class="btn btn-danger">Supprimer</button></td>-->
             </tr>
             <tr *ngIf="isLoading"><td colspan="8" class="text-center"><img src="assets/images/loader.gif" /></td></tr>
           </table>

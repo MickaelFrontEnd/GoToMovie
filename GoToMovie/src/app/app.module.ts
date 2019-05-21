@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -34,6 +35,12 @@ import { ListUserComponent } from './list-user/list-user.component';
 import { UserBoDashboardComponent } from './user-bo-dashboard/user-bo-dashboard.component';
 import { FormPasswordComponent } from './form-password/form-password.component';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { CalendarProjectionComponent } from './calendar-projection/calendar-projection.component';
+import localeFr from '@angular/common/locales/fr';
+import { FormUserComponent } from './form-user/form-user.component';
+
 const appRoutes:Routes = [
   { path: '', component: AppComponent, children: [
     { path: '', component: FormLoginComponent },
@@ -50,13 +57,17 @@ const appRoutes:Routes = [
     { path: 'projections/add', canActivate: [BackGuard], component: AddProjectionComponent },
     { path: 'projections/add/:id', canActivate: [BackGuard], component: FormProjectionComponent },
     { path: 'projections/list', canActivate: [BackGuard], component: ListProjectionComponent },
+    { path: 'projections/calendar', canActivate: [BackGuard], component: CalendarProjectionComponent },
     { path: 'cinema/list',canActivate: [FrontGuard], component: ListCinemaComponent },
     { path: 'users/list',canActivate: [BackGuard], component: ListUserComponent },
     { path: 'users/dashboard',canActivate: [BackGuard], component: UserBoDashboardComponent },
-    { path: 'not-found', component: NotFoundComponent }
+    { path: 'users/profil',canActivate: [FrontGuard], component: FormUserComponent },
+    { path: 'not-found', canActivate: [FrontGuard], component: NotFoundComponent }
   ]},
   { path: '**', redirectTo: 'not-found'}
 ];
+
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [
@@ -79,14 +90,20 @@ const appRoutes:Routes = [
     ListCinemaComponent,
     ListUserComponent,
     UserBoDashboardComponent,
-    FormPasswordComponent
+    FormPasswordComponent,
+    CalendarProjectionComponent,
+    FormUserComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    CalendarModule.forRoot({
+      provide: DateAdapter,
+      useFactory: adapterFactory
+    })
   ],
   providers: [
     MovieService,

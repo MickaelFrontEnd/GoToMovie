@@ -73,7 +73,7 @@ export class FormLoginComponent implements OnInit {
         this.router.navigate(['/users/dashboard']);
       }
       else {
-        this.router.navigate(['/cinema/list']);
+        this.router.navigate(['/projections/list']);
       }
     }
     else {
@@ -83,7 +83,7 @@ export class FormLoginComponent implements OnInit {
 
   onPostError(err) {
     this.disableBtn = false;
-    alert(err);
+    alert('Une erreur s\'est produite. Veuillez contacter l\'administrateur.');
   }
 
 }

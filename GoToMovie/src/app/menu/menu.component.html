@@ -22,7 +22,6 @@
                   <ul class="sub-menu children dropdown-menu">
                       <li><i class="fa fa-plus"></i><a routerLink="/movies/add">Ajout</a></li>
                       <li><i class="fa fa-bars"></i><a routerLink="/movies/list">Liste</a></li>
-                      <!--<li><i class="fa fa-calendar"></i><a routerLink="/movies/list">Calendrier</a></li>-->
                   </ul>
               </li>
               <li class="menu-item-has-children dropdown">
@@ -32,7 +31,7 @@
                   <ul class="sub-menu children dropdown-menu">
                       <li><i class="fa fa-plus"></i><a routerLink="/projections/add">Ajout</a></li>
                       <li><i class="fa fa-bars"></i><a routerLink="/projections/list">Liste</a></li>
-                      <!--<li><i class="fa fa-calendar"></i><a routerLink="/movies/list">Calendrier</a></li>-->
+                      <li><i class="fa fa-calendar"></i><a routerLink="/projections/calendar">Calendrier</a></li>
                   </ul>
               </li>
               <li class="menu-item-has-children dropdown">
@@ -46,26 +45,13 @@
               <li>
                   <a routerLink="/users/list"> <i class="menu-icon fa fa-group"></i>Membres</a>
               </li>
-              <!--<li class="menu-title">PARAMETRES</li>
-              <li class="menu-item-has-children dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="menu-icon fa fa-user"></i>Utilisateur
-                  </a>
-                  <ul class="sub-menu children dropdown-menu">
-                      <li><i class="fa fa-plus"></i><a href="ui-badges.html">Ajout</a></li>
-                      <li><i class="fa fa-bars"></i><a href="ui-tabs.html">Liste</a></li>
-                  </ul>
-              </li>
-              <li>
-                  <a href="widgets.html"> <i class="menu-icon ti-email"></i>Notification</a>
-              </li>-->
             </ul>
             <ul class="nav navbar-nav" *ngIf="user.userType === 0">
               <li>
                   <a href="#"><i class="menu-icon fa fa-laptop"></i>Dashboard</a>
               </li>
               <li>
-                  <a href="#"><i class="menu-icon fa fa-film"></i>Séances</a>
+                  <a routerLink="/projections/list"><i class="menu-icon fa fa-film"></i>Séances</a>
               </li>
               <li class="menu-title">GESTION</li>
               <li class="menu-item-has-children dropdown">

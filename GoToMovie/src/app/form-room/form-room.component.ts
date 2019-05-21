@@ -29,6 +29,7 @@ export class FormRoomComponent implements OnInit {
   initForm() {
     this.roomForm = this.formBuilder.group({
       roomName: ['', Validators.required],
+      roomLocation: ['', Validators.required],
       roomSeats: this.formBuilder.array([['', [ Validators.required, Validators.pattern('^[a-zA-z]*[0-9]*$') , this.validateSeat ] ]])
     });
   }
@@ -39,6 +40,7 @@ export class FormRoomComponent implements OnInit {
       const newRoom = new RoomModel(
         null,
         formValue['roomName'],
+        formValue['roomLocation'],
         formValue['roomSeats'] ? formValue['roomSeats'] : []
       );
       this.disableBtn = true;

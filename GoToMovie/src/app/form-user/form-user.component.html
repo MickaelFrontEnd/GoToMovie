@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="col-lg-6 offset-lg-2">
+    <div class="card">
+      <div class="card-header">
+          <strong class="card-title">Votre profil</strong>
+      </div>
+      <div class="card-body">
+        <div class="card-title text-center">
+          <img width="100" height="100" class="rounded-circle mx-auto d-block mb-3" [src]="userImageFolder + user.userProfilePic" [alt]="user.userName + ' ' + user.userFirstName">
+          <h3 class="text-center">{{ user.userName + ' ' + user.userFirstName }}</h3>
+          <p class="text-center">{{ user.userEmail }}</p>
+          <p class="text-center">{{ this.formatDob(user.userDob) }}</p>
+          <button type="button" class="btn btn-success" (click)="logOut()">Déconnexion</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

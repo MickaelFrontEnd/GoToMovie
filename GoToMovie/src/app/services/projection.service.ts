@@ -1,4 +1,5 @@
 import ProjectionModel from '../models/projection.model';
+import { ProjectionListModel } from '../models/projection.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PROJECTIONS } from './url.service';
@@ -25,7 +26,7 @@ export default class ProjectionService extends ServerService {
   getProjection() {
     this.httpClient.get(PROJECTIONS)
       .subscribe(
-        (data: ProjectionModel[]) => {
+        (data: ProjectionListModel[]) => {
           this.emitGetSuccess(data);
         },
         (err) => { this.emitPostError(err)  },

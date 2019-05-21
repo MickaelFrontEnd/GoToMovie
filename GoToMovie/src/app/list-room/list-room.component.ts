@@ -48,6 +48,7 @@ export class ListRoomComponent implements OnInit {
       null,
       formValue['roomName'],
       null,
+      null,
     );
     this.isLoading = true;
     this.listRooms = [];

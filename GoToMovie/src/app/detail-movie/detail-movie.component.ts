@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import MovieModel from '../models/movie.model';
 import MovieService from '../services/movie.service';
+import UserService from '../services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { MOVIES_IMAGES_FOLDER } from '../services/url.service';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -14,15 +15,22 @@ export class DetailMovieComponent implements OnInit {
 
   movie: MovieModel;
   movieImageFolder: string;
+  isUserBackOffice: boolean = false;
 
   constructor(private movieService: MovieService,
               private activatedRoute: ActivatedRoute,
-              private domSanitizer: DomSanitizer) { }
+              private domSanitizer: DomSanitizer,
+              private userService: UserService) { }
 
   ngOnInit() {
-    this.movieImageFolder = MOVIES_IMAGES_FOLDER;
+    this.initData();
     this.subscribe();
     this.getDetail();
+  }
+
+  initData() {
+    this.movieImageFolder = MOVIES_IMAGES_FOLDER;
+    this.isUserBackOffice = this.userService.isUserBackOffice();
   }
 
   getDetail() {
