@@ -51,7 +51,7 @@ const appRoutes:Routes = [
   { path: '', component: BaseLayoutComponent, children: [
     { path: 'movies/add', canActivate: [BackGuard], component: FormMovieComponent },
     { path: 'movies/list', canActivate: [BackGuard], component: ListMovieComponent },
-    { path: 'movies/:id', canActivate: [BackGuard], component: DetailMovieComponent },
+    { path: 'movies/:id', canActivate: [FrontGuard], component: DetailMovieComponent },
     { path: 'rooms/add', canActivate: [BackGuard], component: FormRoomComponent },
     { path: 'rooms/list', canActivate: [BackGuard], component: ListRoomComponent },
     { path: 'projections/add', canActivate: [BackGuard], component: AddProjectionComponent },

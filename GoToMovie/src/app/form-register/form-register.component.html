@@ -46,9 +46,9 @@
                             class="form-control"
                             placeholder="Champ obligatoire"
                             formControlName="userEmail">
-                            <p *ngIf="registerForm.get('userEmail').invalid && (registerForm.submitted || registerForm.get('userEmail').dirty)"
+                          <p *ngIf="registerForm.get('userEmail').invalid && (registerForm.submitted || registerForm.get('userEmail').dirty)"
                             class="text-danger mt-2">
-                            <span *ngIf="registerForm.get('userEmail').errors.required">Champ obligatoire</span>
+                            <span *ngIf="registerForm.get('userEmail').errors.required">Champ obligatoire<br></span>
                             <span *ngIf="registerForm.get('userEmail').errors.email">Adresse email non valide</span>
                           </p>
                       </div>
@@ -60,7 +60,10 @@
                             placeholder="Champ obligatoire"
                             formControlName="userPassword">
                             <p *ngIf="registerForm.get('userPassword').invalid && (registerForm.submitted || registerForm.get('userPassword').dirty)"
-                            class="text-danger mt-2">Champ obligatoire</p>
+                              class="text-danger mt-2">
+                              <span *ngIf="registerForm.get('userPassword').errors.required">Champ obligatoire<br></span>
+                              <span *ngIf="registerForm.get('userPassword').errors.pattern">Votre mot de passe doit conténir au moins un majuscule, une miniscule, un nombre, un caractère spécial et doit être entre 8 à 15 caractères</span>
+                            </p>
                       </div>
                       <div class="form-group">
                           <label for="pwdValidation">Validation mot de passe*</label>
@@ -70,7 +73,10 @@
                             placeholder="Champ obligatoire"
                             formControlName="userValidationPassword">
                             <p *ngIf="registerForm.get('userValidationPassword').invalid && (registerForm.submitted || registerForm.get('userValidationPassword').dirty)"
-                            class="text-danger mt-2">Champ obligatoire</p>
+                              class="text-danger mt-2">
+                              <span *ngIf="registerForm.get('userValidationPassword').errors.required">Champ obligatoire<br></span>
+                              <span *ngIf="registerForm.get('userValidationPassword').errors.invalidPassword">Les mots de passe ne correspondent pas</span>
+                            </p>
                       </div>
                       <div class="form-group">
                           <label for="profilePic">Photo de profil</label>

@@ -1,20 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import UserService from '../services/user.service';
 import UserModel from '../models/user.model';
 import ResponseModel from '../models/response.model';
 import { SUCCESS, ERROR } from '../models/status.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-register',
   templateUrl: './form-register.component.html',
   styleUrls: ['./form-register.component.css']
 })
-export class FormRegisterComponent implements OnInit {
+export class FormRegisterComponent implements OnInit, OnDestroy {
 
   registerForm: FormGroup;
   disableBtn: boolean = false;
+  subscription: Subscription;
+  passwordSubscription: Subscription;
+  passwordValidationSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -25,12 +29,34 @@ export class FormRegisterComponent implements OnInit {
     this.subscribeToService();
   }
 
+  ngOnDestroy() {
+    this.unsubscribe();
+  }
+
   subscribeToService() {
-    this.userService.postSubject.subscribe(
+    this.subscription = this.userService.postSubject.subscribe(
       (data) => { this.onPostSuccess (data); },
       (err) => { this.onPostError (err); },
       () => { this.onComplete(); }
     );
+
+    this.passwordSubscription = this.registerForm.get('userPassword').valueChanges.subscribe(
+      (uname) => {
+    	   this.registerForm.get('userValidationPassword').updateValueAndValidity({onlySelf: true, emitEvent: false});
+       }
+    );
+
+    this.passwordValidationSubscription = this.registerForm.get('userValidationPassword').valueChanges.subscribe(
+      (uname) => {
+    	   this.registerForm.get('userPassword').updateValueAndValidity({onlySelf: true, emitEvent: false});
+       }
+    );
+  }
+
+  unsubscribe() {
+    this.subscription.unsubscribe();
+    this.passwordSubscription.unsubscribe();
+    this.passwordValidationSubscription.unsubscribe();
   }
 
   initForm() {
@@ -39,8 +65,8 @@ export class FormRegisterComponent implements OnInit {
       userFirstName: ['', Validators.required],
       userEmail: ['', [Validators.required, Validators.email]],
       userDob: ['', Validators.required],
-      userPassword: ['', Validators.required],
-      userValidationPassword: ['', Validators.required],
+      userPassword: ['', [Validators.required, Validators.pattern('^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\\s).{8,15}$'), this.validatePassword]],
+      userValidationPassword: ['', [Validators.required, this.validatePassword]],
       userTC: ['', Validators.required],
       userProfilePic: '',
     });
@@ -73,7 +99,7 @@ export class FormRegisterComponent implements OnInit {
   onPostSuccess(data: ResponseModel) {
     this.disableBtn = false;
     if(data.status === SUCCESS) {
-      this.router.navigate(['/cinema/list']);
+      this.router.navigate(['/projections/list']);
     }
     else {
       alert(data.message);
@@ -87,6 +113,15 @@ export class FormRegisterComponent implements OnInit {
 
   onComplete() {
     this.disableBtn = false;
+  }
+
+  validatePassword = (control: AbstractControl): ValidationErrors | null => {
+    if(this.registerForm) {
+      let org = this.registerForm.get('userPassword').value;
+      let dest = this.registerForm.get('userValidationPassword').value;
+      return dest === org ? null : { 'invalidPassword': 'Les mots de passe ne correspondent pas' };
+    }
+    return null;
   }
 
 }
