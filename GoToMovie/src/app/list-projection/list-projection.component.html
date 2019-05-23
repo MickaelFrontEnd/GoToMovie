@@ -47,7 +47,7 @@
         </form>
       </div>
     </div>
-    <p *ngIf="!isUserBackOffice" class="alert alert-info">Pour effectuer vos reservations, cliquez sur le titre du film :)</p>
+    <p *ngIf="!isUserBackOffice" class="alert alert-info">Pour effectuer vos reservations, cliquez sur le posteur ou le titre du film :)</p>
     <div class="card">
       <div class="card-header">
           <strong class="card-title">Liste des séances de cinéma</strong>
@@ -65,7 +65,7 @@
               <th>Heure fin</th>
             </tr>
             <tr *ngFor="let projection of listProjections">
-              <td><img [src]="movieImageFolder + '' + projection.projectionMovie.moviePic"/></td>
+              <td><a routerLink="/movies/{{ projection.projectionMovie._id }}"><img [src]="movieImageFolder + '' + projection.projectionMovie.moviePic"/></a></td>
               <td><a routerLink="/movies/{{ projection.projectionMovie._id }}">{{ projection.projectionMovie.movieTitle }}</a></td>
               <td>{{ projection.projectionMovie.movieLanguage }}</td>
               <td>{{ projection.projectionMovie.movieType }}</td>
@@ -75,6 +75,7 @@
               <td>{{ projection.projectionEnd }}</td>
             </tr>
             <tr *ngIf="isLoading"><td colspan="8" class="text-center"><img src="assets/images/loader.gif" /></td></tr>
+            <tr *ngIf="!isLoading && listProjections.length === 0"><td colspan="8" class="text-center" style="text-transform:none;">Aucun résultat à afficher</td></tr>
           </table>
       </div>
     </div>

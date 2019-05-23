@@ -34,6 +34,7 @@
               <td style="text-transform:none;">{{ room.roomLocation }}</td>
             </tr>
             <tr *ngIf="isLoading"><td colspan="8" class="text-center"><img src="assets/images/loader.gif" /></td></tr>
+            <tr *ngIf="!isLoading && listRooms.length === 0"><td colspan="8" class="text-center" style="text-transform:none;">Aucun résultat à afficher</td></tr>
           </table>
       </div>
     </div>

@@ -35,7 +35,14 @@ export default class ProjectionService extends ServerService {
   }
 
   findProjection(model: ProjectionModel) {
-    let params = ModelUtil.getParams(model);
+    let m = {
+      movieTitle: model.projectionMovie.movieTitle,
+      movieLanguage: model.projectionMovie.movieLanguage,
+      movieType: model.projectionMovie.movieType,
+      projectionRoom: model.projectionRoom,
+      projectionDay: model.projectionDay
+    };
+    let params = ModelUtil.getParams(m);
     this.httpClient.get(PROJECTIONS, { params })
       .subscribe(
         (data: ProjectionModel[]) => {

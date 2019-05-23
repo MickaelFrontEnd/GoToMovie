@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import ProjectionModel from '../models/projection.model';
 import RoomModel from '../models/room.model';
+import MovieModel from '../models/movie.model';
 import ProjectionService from '../services/projection.service';
 import RoomService from '../services/room.service';
 import UserService from '../services/user.service';
@@ -88,7 +89,7 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
       const newProjection = new ProjectionModel(
         null,
         '',
-        '',
+        null,
         this.activatedRoute.snapshot.params['date'],
         '',
         ''
@@ -109,10 +110,21 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
 
   onSubmitForm() {
     const formValue = this.projectionForm.value;
+    const newMovie = new MovieModel (
+      null,
+      formValue['movieTitle'],
+      '',
+      formValue['movieLanguage'],
+      formValue['movieType'],
+      '',
+      '',
+      '',
+      ''
+    );
     const newProjection = new ProjectionModel(
       null,
       formValue['projectionRoom'],
-      '',
+      newMovie,
       formValue['projectionDay'],
       '',
       ''

@@ -106,14 +106,14 @@ export class FormProjectionComponent implements OnInit, OnDestroy {
     });
   }
 
-  onSubmitForm() {console.log(this.projectionForm);
+  onSubmitForm() {
     if(this.projectionForm.valid) {
       const formValue = this.projectionForm.value;
       const id = this.movie._id as string;
       const newProjection = new ProjectionModel(
         null,
         formValue['projectionRoom'],
-        id,
+        this.movie,
         formValue['projectionDay'],
         formValue['projectionBegin'],
         formValue['projectionEnd']
@@ -166,17 +166,17 @@ export class FormProjectionComponent implements OnInit, OnDestroy {
     if(!date1 || !date2) {
       return true;
     }
-    const date1Hour = parseInt(date1.split(':')[0]); console.log(date1Hour);
-    const date2Hour = parseInt(date2.split(':')[0]); console.log(date2Hour);
-    if(date1Hour < date2Hour) { console.log('TRUE KOSA');
+    const date1Hour = parseInt(date1.split(':')[0]);
+    const date2Hour = parseInt(date2.split(':')[0]);
+    if(date1Hour < date2Hour) {
       return true;
     }
-    else if(date1Hour === date2Hour) { console.log('FALSE MITOVY VE KOSA');
+    else if(date1Hour === date2Hour) {
       const date1Minute = parseInt(date1.split(':')[1]);
       const date2Minute = parseInt(date2.split(':')[1]);
       return date1Minute < date2Minute;
     }
-    else { console.log('FALSE KOSA');
+    else {
       return false;
     }
   }
