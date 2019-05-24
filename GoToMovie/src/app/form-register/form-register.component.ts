@@ -19,6 +19,7 @@ export class FormRegisterComponent implements OnInit, OnDestroy {
   subscription: Subscription;
   passwordSubscription: Subscription;
   passwordValidationSubscription: Subscription;
+  private userPic: File;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
@@ -75,18 +76,8 @@ export class FormRegisterComponent implements OnInit, OnDestroy {
   onSubmitForm() {
     if(this.registerForm.valid) {
       const formValue = this.registerForm.value;
-      const newUser = new UserModel(
-        null,
-        formValue['userName'],
-        formValue['userFirstName'],
-        formValue['userDob'],
-        formValue['userEmail'],
-        formValue['userPassword'],
-        formValue['userProfilePic'],
-        0
-      );
       this.disableBtn = true;
-      this.userService.addUser(newUser);
+      this.userService.addUser(this.buildFormData(formValue));
     }
     else {
       Object.keys(this.registerForm.controls).forEach(field => {
@@ -108,7 +99,7 @@ export class FormRegisterComponent implements OnInit, OnDestroy {
 
   onPostError(err) {
     this.disableBtn = false;
-    alert(err);
+    alert('Une erreur s\'est produite, veuillez contacter l\'administrateur');
   }
 
   onComplete() {
@@ -122,6 +113,24 @@ export class FormRegisterComponent implements OnInit, OnDestroy {
       return dest === org ? null : { 'invalidPassword': 'Les mots de passe ne correspondent pas' };
     }
     return null;
+  }
+
+  onFileChange(event) {
+    if (event.target.files.length > 0) {
+      this.userPic = event.target.files[0];
+    }
+  }
+
+  buildFormData(formValue): FormData {
+    let data:FormData = new FormData();
+    data.append('userName', formValue['userName']);
+    data.append('userFirstName', formValue['userFirstName']);
+    data.append('userDob', formValue['userDob']);
+    data.append('userEmail', formValue['userEmail']);
+    data.append('userPassword', formValue['userPassword']);
+    data.append('userType', '0');
+    data.append('userProfilePic', this.userPic);
+    return data;
   }
 
 }

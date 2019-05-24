@@ -36,9 +36,9 @@ export default class ProjectionService extends ServerService {
 
   findProjection(model: ProjectionModel) {
     let m = {
-      movieTitle: model.projectionMovie.movieTitle,
-      movieLanguage: model.projectionMovie.movieLanguage,
-      movieType: model.projectionMovie.movieType,
+      movieTitle: model.projectionMovie? model.projectionMovie.movieTitle : '',
+      movieLanguage: model.projectionMovie? model.projectionMovie.movieLanguage : '',
+      movieType: model.projectionMovie? model.projectionMovie.movieType : '',
       projectionRoom: model.projectionRoom,
       projectionDay: model.projectionDay
     };

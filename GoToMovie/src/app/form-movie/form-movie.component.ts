@@ -60,17 +60,6 @@ export class FormMovieComponent implements OnInit, OnDestroy {
   onSubmitForm() {
     if(this.movieForm.valid) {
       const formValue = this.movieForm.value;
-      const newMovie = new MovieModel(
-        null,
-        formValue['movieTitle'],
-        formValue['movieDescription'],
-        formValue['movieLanguage'],
-        formValue['movieType'],
-        formValue['movieActor'],
-        formValue['movieDirector'],
-        formValue['movieTrailer'],
-        ''
-      );
       this.disableBtn = true;
       this.movieService.addMovie(this.buildFormData(formValue));
     }

@@ -14,11 +14,11 @@ export default class UserService extends ServerService {
 
   private user:UserModel;
 
-  addUser(user: UserModel) {
+  addUser(user: FormData) {
     this.httpClient.post(USERS, user)
       .subscribe(
         (data: ResponseModel) => {
-          this.user = user;
+          this.user = data.data;
           this.emitPostSuccess(data);
         },
         (err) => { this.emitPostError(err)  },

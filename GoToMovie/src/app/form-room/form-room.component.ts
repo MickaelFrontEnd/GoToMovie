@@ -18,6 +18,8 @@ export class FormRoomComponent implements OnInit, OnDestroy {
   room: RoomModel;
   disableBtn: boolean = false;
   subscription: Subscription;
+  passwordSubscription: Subscription;
+  passwordValidationSubscription: Subscription;
 
   constructor(private formBuilder: FormBuilder,
               private roomService: RoomService,
@@ -101,10 +103,24 @@ export class FormRoomComponent implements OnInit, OnDestroy {
         alert(err);
       }
     );
+
+    /*this.passwordSubscription = this.userForm.get('userPassword').valueChanges.subscribe(
+      (uname) => {
+    	   //this.roomForm.get('userValidationPassword').updateValueAndValidity({onlySelf: true, emitEvent: false});
+       }
+    );
+
+    this.passwordValidationSubscription = this.userForm.get('userValidationPassword').valueChanges.subscribe(
+      (uname) => {
+    	   //this.roomForm.get('userPassword').updateValueAndValidity({onlySelf: true, emitEvent: false});
+       }
+    );*/
   }
 
   unsubscribe() {
     this.subscription.unsubscribe();
+    this.passwordSubscription.unsubscribe();
+    this.passwordValidationSubscription.unsubscribe();
   }
 
 

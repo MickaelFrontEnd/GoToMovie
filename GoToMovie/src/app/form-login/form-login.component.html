@@ -1,9 +1,13 @@
-<div class="bg-dark" style="min-height:100vh">
+<div class="" style="min-height:100vh; background-image:url('assets/images/wallpaper.jpg')" >
   <div class="sufee-login d-flex align-content-center flex-wrap">
       <div class="container">
           <div class="login-content">
               <div class="login-logo">
                   <a routerLink="/login" style="font-size:40px;color:#878787;">HAPPY GO TO MOVIE</a>
+              </div>
+              <div class="alert alert-info">
+                Etes-vous membres de nos cercles d'organisateur? <a href="#">Cliquez ici</a> pour reçevoir vos identifiants
+                et mot de passe par email après validation de l'administrateur.
               </div>
               <div class="login-form">
                   <form [formGroup]="loginForm"  (ngSubmit)="onSubmitForm()">
