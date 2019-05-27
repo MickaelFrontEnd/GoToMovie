@@ -25,7 +25,7 @@ export default class ProjectionService extends ServerService {
 
   getReservation(user: UserModel) {
     let params = null;
-    if(user) {
+    if(user.userType === 0) {
       let m = {
         userId: user._id
       }
