@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import UserService from '../services/user.service';
 import UserModel from '../models/user.model';
@@ -7,11 +7,11 @@ import { SUCCESS } from '../models/status.model';
 import { Subscription } from 'rxjs/subscription';
 
 @Component({
-  selector: 'app-form-password',
-  templateUrl: './form-password.component.html',
-  styleUrls: ['./form-password.component.css']
+  selector: 'app-form-admin',
+  templateUrl: './form-admin.component.html',
+  styleUrls: ['./form-admin.component.css']
 })
-export class FormPasswordComponent implements OnInit, OnDestroy {
+export class FormAdminComponent implements OnInit {
 
   passwordForm: FormGroup;
   user: UserModel;
@@ -59,7 +59,7 @@ export class FormPasswordComponent implements OnInit, OnDestroy {
         0
       );
       this.disableBtn = true;
-      this.userService.resetPassword(newUser);
+      this.userService.sendAdminPassword(newUser);
     }
     else {
       Object.keys(this.passwordForm.controls).forEach(field => {
@@ -84,8 +84,7 @@ export class FormPasswordComponent implements OnInit, OnDestroy {
     alert(err);
   }
 
-  onComplete() { alert('on complete');
+  onComplete() {
     this.disableBtn = false;
   }
-
 }

@@ -47,13 +47,15 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ListReservationComponent } from './list-reservation/list-reservation.component';
+import { FormAdminComponent } from './form-admin/form-admin.component';
 
 const appRoutes:Routes = [
   { path: '', component: AppComponent, children: [
     { path: '', component: FormLoginComponent },
     { path: 'login', component: FormLoginComponent },
     { path: 'register', component: FormRegisterComponent },
-    { path: 'forgot-password', component: FormPasswordComponent }
+    { path: 'forgot-password', component: FormPasswordComponent },
+    { path: 'request-admin', component: FormAdminComponent }
   ]},
   { path: '', component: BaseLayoutComponent, children: [
     { path: 'movies/add', canActivate: [BackGuard], component: FormMovieComponent },
@@ -105,7 +107,8 @@ registerLocaleData(localeFr);
     CalendarProjectionComponent,
     FormUserComponent,
     FormReservationComponent,
-    ListReservationComponent
+    ListReservationComponent,
+    FormAdminComponent
   ],
   imports: [
     BrowserModule,

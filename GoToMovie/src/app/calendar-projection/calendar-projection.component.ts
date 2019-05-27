@@ -17,7 +17,7 @@ export class CalendarProjectionComponent implements OnInit, OnDestroy {
   events: Array<CalendarEvent<{ incrementsBadgeTotal: boolean }>> = [];
   listProjections: ProjectionModel[];
   refresh: Subject<any> = new Subject();
-  activeDayIsOpen:boolean = true;
+  activeDayIsOpen:boolean = false;
   subscription: Subscription;
   view: CalendarView = CalendarView.Month;
 

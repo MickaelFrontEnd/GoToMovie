@@ -9,6 +9,7 @@ export const USERS_IMAGES_FOLDER = DOMAIN_NAME + 'images/users/';
 export const DASHBOARD_BO = USERS + '/getUserBoDashboard';
 export const DASHBOARD_FO = USERS + '/getUserDashboard';
 export const RESET_PASSWORD = USERS + '/resetPassword';
+export const SEND_ADMIN_PASSWORD = USERS + '/sendAdminPassword';
 export const RESERVATIONS = API_ROOT + 'reservations';
 
 export default {

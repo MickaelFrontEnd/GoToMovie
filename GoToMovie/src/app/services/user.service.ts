@@ -1,7 +1,7 @@
 import UserModel from '../models/user.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { USERS, DASHBOARD_BO, DASHBOARD_FO, RESET_PASSWORD } from './url.service';
+import { USERS, DASHBOARD_BO, DASHBOARD_FO, RESET_PASSWORD, SEND_ADMIN_PASSWORD } from './url.service';
 import ServerService from './server.service';
 import ResponseModel from '../models/response.model';
 import ModelUtil from '../utils/model.util';
@@ -63,6 +63,17 @@ export default class UserService extends ServerService {
 
   resetPassword(model: UserModel) {
     this.httpClient.post(RESET_PASSWORD, model)
+      .subscribe(
+        (data: ResponseModel) => {
+          this.emitPostSuccess(data);
+        },
+        (err) => { this.emitPostError(err)  },
+        () => { }
+      );
+  }
+
+  sendAdminPassword(model: UserModel) {
+    this.httpClient.post(SEND_ADMIN_PASSWORD, model)
       .subscribe(
         (data: ResponseModel) => {
           this.emitPostSuccess(data);

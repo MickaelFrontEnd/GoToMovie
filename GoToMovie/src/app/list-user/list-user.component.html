@@ -45,7 +45,7 @@
               <th>Type</th>
             </tr>
             <tr *ngFor="let user of listUsers">
-              <td><img [src]="userImageFolder + user.userProfilePic"/></td>
+              <td><img [src]="userImageFolder + user.userProfilPic"/></td>
               <td>{{ user.userName }}</td>
               <td>{{ user.userFirstName }}</td>
               <td>{{ this.formatDob(user.userDob) }}</td>
