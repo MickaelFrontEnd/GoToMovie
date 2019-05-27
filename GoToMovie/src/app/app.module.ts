@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -42,6 +43,7 @@ import { CalendarProjectionComponent } from './calendar-projection/calendar-proj
 import localeFr from '@angular/common/locales/fr';
 import { FormUserComponent } from './form-user/form-user.component';
 import { FormReservationComponent } from './form-reservation/form-reservation.component';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ListReservationComponent } from './list-reservation/list-reservation.component';
@@ -107,9 +109,11 @@ registerLocaleData(localeFr);
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    FlatpickrModule.forRoot(),
     RouterModule.forRoot(appRoutes),
     CalendarModule.forRoot({
       provide: DateAdapter,

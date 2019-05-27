@@ -17,8 +17,10 @@ export class CalendarProjectionComponent implements OnInit, OnDestroy {
   events: Array<CalendarEvent<{ incrementsBadgeTotal: boolean }>> = [];
   listProjections: ProjectionModel[];
   refresh: Subject<any> = new Subject();
-  activeDayIsOpen:boolean = false;
+  activeDayIsOpen:boolean = true;
   subscription: Subscription;
+  view: CalendarView = CalendarView.Month;
+
 
   constructor(private projectionService: ProjectionService,
               private router: Router) { }
@@ -76,6 +78,33 @@ export class CalendarProjectionComponent implements OnInit, OnDestroy {
     else {
       alert('Aucune séance de cinéma prevu pour cette date');
     }
+  }
+
+  closeOpenMonthViewDay() {
+    this.activeDayIsOpen = false;
+  }
+
+  eventTimesChanged({
+    event,
+    newStart,
+    newEnd
+  }: CalendarEventTimesChangedEvent): void {
+    this.events = this.events.map(iEvent => {
+      if (iEvent === event) {
+        return {
+          ...event,
+          start: newStart,
+          end: newEnd
+        };
+      }
+      return iEvent;
+    });
+    this.handleEvent('Dropped or resized', event);
+  }
+
+  handleEvent(action: string, event: CalendarEvent): void {
+    //this.modalData = { event, action };
+    //this.modal.open(this.modalContent, { size: 'lg' });
   }
 
 }
