@@ -6,10 +6,10 @@
 <div class="row" *ngIf="dashboard">
   <div class="col-md-12">
     <div class="alert alert-success">
-      Bienvenu administrateur
+      Bienvenu {{ user.userName + ' ' + user.userFirstName }}
     </div>
   </div>
-  <div class="col-lg-3 col-md-6 clickable" routerLink="/movies/list">
+  <div *ngIf="user.userType === 1" class="col-lg-3 col-md-6 clickable" routerLink="/movies/list">
     <div class="card">
       <div class="card-body">
         <div class="stat-widget-five">
@@ -43,7 +43,7 @@
       </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6 clickable" routerLink="/rooms/list">
+  <div  *ngIf="user.userType === 1" class="col-lg-3 col-md-6 clickable" routerLink="/rooms/list">
     <div class="card">
       <div class="card-body">
         <div class="stat-widget-five">
@@ -60,7 +60,7 @@
         </div>
     </div>
   </div>
-  <div class="col-lg-3 col-md-6 clickable" routerLink="/users/list">
+  <div  *ngIf="user.userType === 1" class="col-lg-3 col-md-6 clickable" routerLink="/users/list">
     <div class="card">
       <div class="card-body">
         <div class="stat-widget-five">
@@ -75,6 +75,28 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+  <div  *ngIf="user.userType === 0" class="col-lg-3 col-md-6 clickable" routerLink="/reservations/list">
+    <div class="card">
+      <div class="card-body">
+        <div class="stat-widget-five">
+          <div class="stat-icon dib flat-color-4">
+            <i class="pe-7s-cash"></i>
+          </div>
+          <div class="stat-content">
+            <div class="text-left dib">
+              <div class="stat-text"><span class="count">{{ dashboard.reservationNumber }}</span></div>
+              <div class="stat-heading">Resérvations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="alert alert-info">
+      Les séances des cinémas disponibles sont repertoriées dans le calendrier en dessous
     </div>
   </div>
   <div class="col-md-12">

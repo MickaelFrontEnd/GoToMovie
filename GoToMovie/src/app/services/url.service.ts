@@ -7,7 +7,9 @@ export const USERS = API_ROOT + 'users';
 export const MOVIES_IMAGES_FOLDER = DOMAIN_NAME + 'images/movies/';
 export const USERS_IMAGES_FOLDER = DOMAIN_NAME + 'images/users/';
 export const DASHBOARD_BO = USERS + '/getUserBoDashboard';
+export const DASHBOARD_FO = USERS + '/getUserDashboard';
 export const RESET_PASSWORD = USERS + '/resetPassword';
+export const RESERVATIONS = API_ROOT + 'reservations';
 
 export default {
 

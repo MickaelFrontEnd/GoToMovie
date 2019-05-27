@@ -47,7 +47,7 @@
         </form>
       </div>
     </div>
-    <p *ngIf="!isUserBackOffice" class="alert alert-info">Pour effectuer vos reservations, cliquez sur le posteur ou le titre du film :)</p>
+    <p *ngIf="!isUserBackOffice" class="alert alert-info">Pour effectuer vos reservations, cliquez sur le posteur ou le titre du film</p>
     <div class="card">
       <div class="card-header">
           <strong class="card-title">Liste des séances de cinéma</strong>
@@ -65,11 +65,11 @@
               <th>Heure fin</th>
             </tr>
             <tr *ngFor="let projection of listProjections">
-              <td><a routerLink="/movies/{{ projection.projectionMovie._id }}"><img [src]="movieImageFolder + '' + projection.projectionMovie.moviePic"/></a></td>
-              <td><a routerLink="/movies/{{ projection.projectionMovie._id }}">{{ projection.projectionMovie.movieTitle }}</a></td>
+              <td><a routerLink="/movies/{{ projection.projectionMovie._id }}/{{ projection._id }}"><img [src]="movieImageFolder + '' + projection.projectionMovie.moviePic"/></a></td>
+              <td><a routerLink="/movies/{{ projection.projectionMovie._id }}/{{ projection._id }}/">{{ projection.projectionMovie.movieTitle }}</a></td>
               <td>{{ projection.projectionMovie.movieLanguage }}</td>
               <td>{{ projection.projectionMovie.movieType }}</td>
-              <td>{{ projection.projectionRoom }}</td>
+              <td>{{ projection.projectionRoom.roomName }}</td>
               <td>{{ this.formatDate(projection.projectionDay) }}</td>
               <td>{{ projection.projectionBegin }}</td>
               <td>{{ projection.projectionEnd }}</td>

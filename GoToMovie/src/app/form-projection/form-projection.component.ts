@@ -61,7 +61,7 @@ export class FormProjectionComponent implements OnInit, OnDestroy {
     this.subscriptionRoom = this.roomService.getSubject.subscribe(
       (data: RoomModel[]) => {
         this.rooms = data;
-        this.projectionForm.get('projectionRoom').setValue(this.rooms[0].roomName);
+        this.projectionForm.get('projectionRoom').setValue(0);
       },
       (err) => { alert(err); console.log(err); }
     );
@@ -112,11 +112,12 @@ export class FormProjectionComponent implements OnInit, OnDestroy {
       const id = this.movie._id as string;
       const newProjection = new ProjectionModel(
         null,
-        formValue['projectionRoom'],
+        this.rooms[formValue['projectionRoom']],
         this.movie,
         formValue['projectionDay'],
         formValue['projectionBegin'],
-        formValue['projectionEnd']
+        formValue['projectionEnd'],
+        this.rooms[formValue['projectionRoom']].roomSeats
       );
       this.disableBtn = true;
       this.projectionService.addProjection(newProjection);

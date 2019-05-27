@@ -16,6 +16,7 @@ export class DetailMovieComponent implements OnInit {
   movie: MovieModel;
   movieImageFolder: string;
   isUserBackOffice: boolean = false;
+  projection: string;
 
   constructor(private movieService: MovieService,
               private activatedRoute: ActivatedRoute,
@@ -31,6 +32,7 @@ export class DetailMovieComponent implements OnInit {
   initData() {
     this.movieImageFolder = MOVIES_IMAGES_FOLDER;
     this.isUserBackOffice = this.userService.isUserBackOffice();
+    this.projection = this.activatedRoute.snapshot.params['di'];
   }
 
   getDetail() {

@@ -1,0 +1,16 @@
+.card-body span:hover {
+  cursor: pointer;
+}
+
+
+.seat {
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid 2px black;
+}
+
+.reserved-container > div, .free-container > div {
+  min-height: 50px;
+}

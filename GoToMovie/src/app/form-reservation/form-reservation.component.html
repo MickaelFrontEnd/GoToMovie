@@ -1,0 +1,65 @@
+<div class="row">
+  <div class="col-lg-12">
+    <div class="card">
+      <div class="card-header">
+          <strong class="card-title">Navigation</strong>
+      </div>
+      <div class="card-body">
+        <a href="javascript:history.back();" style="text-decoration: underline">Revenir en arrière</a>
+      </div>
+    </div>
+    <div class="alert alert-info">
+      Déplacer à droite les places que vous voulez reserver
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="!projection">
+  <div class="col-md-12 text-center">
+    <img src="assets/images/loader.gif" />
+  </div>
+</div>
+<div class="row" *ngIf="projection">
+  <div class="col-md-12 text-right mb-2">
+    <button type="button" class="btn btn-success" name="button" (click)="submitReservation()" [disabled]="reservedSeats.length === 0">Confirmer</button>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        <strong class="card-title">Places disponibles</strong>
+      </div>
+      <div class="card-body free-container">
+        <div class="row"
+        cdkDropList
+        #freeSeatsList="cdkDropList"
+        [cdkDropListData]="freeSeats"
+        [cdkDropListConnectedTo]="[reservedSeatsList]"
+        (cdkDropListDropped)="onDrop($event)">
+          <div *ngFor="let seat of freeSeats"
+            class="col-md-2 seat-item mb-2" cdkDrag>
+            <button type="button" class="btn btn-primary">{{ seat }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6" >
+    <div class="card">
+      <div class="card-header">
+        <strong class="card-title">Place reservés</strong>
+      </div>
+      <div class="card-body reserved-container">
+        <div class="row"
+        cdkDropList
+        #reservedSeatsList="cdkDropList"
+        [cdkDropListData]="reservedSeats"
+        [cdkDropListConnectedTo]="[freeSeatsList]"
+        (cdkDropListDropped)="onDrop($event)">
+          <div *ngFor="let seat of reservedSeats"
+            class="col-md-2 seat-item mb-2" cdkDrag>
+            <button type="button" class="btn btn-success">{{ seat }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

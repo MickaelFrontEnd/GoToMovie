@@ -24,6 +24,7 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
   movieImageFolder: string;
   isUserBackOffice: boolean = false;
   subscription: Subscription;
+  roomSubscription: Subscription;
 
   constructor(private projectionService: ProjectionService,
               private activatedRoute: ActivatedRoute,
@@ -70,7 +71,7 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.roomService.getSubject.subscribe(
+    this.roomSubscription = this.roomService.getSubject.subscribe(
       (data: RoomModel[]) => {
         this.listRooms = data;
       },
@@ -82,13 +83,14 @@ export class ListProjectionComponent implements OnInit, OnDestroy {
 
   unsubscribe() {
     this.subscription.unsubscribe();
+    this.roomSubscription.unsubscribe();
   }
 
   initList() {
     if(this.activatedRoute.snapshot.params['date']) {
       const newProjection = new ProjectionModel(
         null,
-        '',
+        null,
         null,
         this.activatedRoute.snapshot.params['date'],
         '',

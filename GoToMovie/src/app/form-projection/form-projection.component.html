@@ -21,7 +21,7 @@
               <select id="projection-seat"
                 class="form-control"
                 formControlName="projectionRoom">
-                  <option *ngFor="let room of rooms" [value]="room.roomName">{{ room.roomName }}</option>
+                  <option *ngFor="let room of rooms; let i = index" [value]="i">{{ room.roomName }}</option>
               </select>
             </div>
             <div class="form-group">

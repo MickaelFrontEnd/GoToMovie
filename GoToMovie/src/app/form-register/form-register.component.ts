@@ -90,7 +90,7 @@ export class FormRegisterComponent implements OnInit, OnDestroy {
   onPostSuccess(data: ResponseModel) {
     this.disableBtn = false;
     if(data.status === SUCCESS) {
-      this.router.navigate(['/projections/list']);
+      this.router.navigate(['/users/dashboard']);
     }
     else {
       alert(data.message);

@@ -1,7 +1,7 @@
 import UserModel from '../models/user.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { USERS, DASHBOARD_BO, RESET_PASSWORD } from './url.service';
+import { USERS, DASHBOARD_BO, DASHBOARD_FO, RESET_PASSWORD } from './url.service';
 import ServerService from './server.service';
 import ResponseModel from '../models/response.model';
 import ModelUtil from '../utils/model.util';
@@ -72,8 +72,9 @@ export default class UserService extends ServerService {
       );
   }
 
-  getUserBoDashboard() {
-    this.httpClient.get(DASHBOARD_BO)
+  getUserDashboard(user: UserModel) {
+    let url = user.userType === 1 ? DASHBOARD_BO : DASHBOARD_FO + '?userId=' + user._id;
+    this.httpClient.get(url)
       .subscribe(
         (data: DashboardModel) => {
           this.emitGetSuccess(data);

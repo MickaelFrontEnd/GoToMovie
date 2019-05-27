@@ -69,12 +69,7 @@ export class FormLoginComponent implements OnInit {
     this.disableBtn = false;
     if(data) {
       this.user = data;
-      if(this.user.userType === 1) {
-        this.router.navigate(['/users/dashboard']);
-      }
-      else {
-        this.router.navigate(['/projections/list']);
-      }
+      this.router.navigate(['/users/dashboard']);
     }
     else {
       this.showError = true;

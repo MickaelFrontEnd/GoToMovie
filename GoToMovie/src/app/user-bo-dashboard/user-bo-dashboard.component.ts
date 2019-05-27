@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import DashboardModel from '../models/dashboard.model';
+import UserModel from '../models/user.model';
 import UserService from '../services/user.service';
 import { Subscription } from 'rxjs';
 
@@ -12,8 +13,9 @@ export class UserBoDashboardComponent implements OnInit, OnDestroy {
 
   dashboard: DashboardModel;
   subscription: Subscription;
+  user: UserModel;
 
-  constructor(private userService: UserService,) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.subscribe();
@@ -37,7 +39,8 @@ export class UserBoDashboardComponent implements OnInit, OnDestroy {
   }
 
   initList() {
-    this.userService.getUserBoDashboard();
+    this.user = this.userService.getUser();
+    this.userService.getUserDashboard(this.user);
   }
 
 }

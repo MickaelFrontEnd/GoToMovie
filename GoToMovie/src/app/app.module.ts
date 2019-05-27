@@ -17,6 +17,7 @@ import ProjectionService from './services/projection.service';
 import UserService from './services/user.service';
 import FrontGuard from './services/fo-guard.service';
 import BackGuard from './services/bo-guard.service';
+import ReservationService from './services/reservation.service';
 
 import { ErrorModalComponent } from './error-modal/error-modal.component';
 import { ListMovieComponent } from './list-movie/list-movie.component';
@@ -40,6 +41,10 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarProjectionComponent } from './calendar-projection/calendar-projection.component';
 import localeFr from '@angular/common/locales/fr';
 import { FormUserComponent } from './form-user/form-user.component';
+import { FormReservationComponent } from './form-reservation/form-reservation.component';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ListReservationComponent } from './list-reservation/list-reservation.component';
 
 const appRoutes:Routes = [
   { path: '', component: AppComponent, children: [
@@ -52,6 +57,7 @@ const appRoutes:Routes = [
     { path: 'movies/add', canActivate: [BackGuard], component: FormMovieComponent },
     { path: 'movies/list', canActivate: [BackGuard], component: ListMovieComponent },
     { path: 'movies/:id', canActivate: [FrontGuard], component: DetailMovieComponent },
+    { path: 'movies/:id/:di', canActivate: [FrontGuard], component: DetailMovieComponent },
     { path: 'rooms/add', canActivate: [BackGuard], component: FormRoomComponent },
     { path: 'rooms/list', canActivate: [BackGuard], component: ListRoomComponent },
     { path: 'projections/add', canActivate: [BackGuard], component: AddProjectionComponent },
@@ -59,9 +65,11 @@ const appRoutes:Routes = [
     { path: 'projections/list', canActivate: [FrontGuard], component: ListProjectionComponent },
     { path: 'projections/list/:date', canActivate: [FrontGuard], component: ListProjectionComponent },
     { path: 'projections/calendar', canActivate: [BackGuard], component: CalendarProjectionComponent },
+    { path: 'projections/reservation/:id', canActivate: [FrontGuard], component: FormReservationComponent },
+    { path: 'reservations/list', canActivate: [FrontGuard], component: ListReservationComponent },
     { path: 'cinema/list',canActivate: [FrontGuard], component: ListCinemaComponent },
     { path: 'users/list',canActivate: [BackGuard], component: ListUserComponent },
-    { path: 'users/dashboard',canActivate: [BackGuard], component: UserBoDashboardComponent },
+    { path: 'users/dashboard',canActivate: [FrontGuard], component: UserBoDashboardComponent },
     { path: 'users/profil',canActivate: [FrontGuard], component: FormUserComponent },
     { path: 'not-found', canActivate: [FrontGuard], component: NotFoundComponent }
   ]},
@@ -93,7 +101,9 @@ registerLocaleData(localeFr);
     UserBoDashboardComponent,
     FormPasswordComponent,
     CalendarProjectionComponent,
-    FormUserComponent
+    FormUserComponent,
+    FormReservationComponent,
+    ListReservationComponent
   ],
   imports: [
     BrowserModule,
@@ -104,7 +114,8 @@ registerLocaleData(localeFr);
     CalendarModule.forRoot({
       provide: DateAdapter,
       useFactory: adapterFactory
-    })
+    }),
+    DragDropModule
   ],
   providers: [
     MovieService,
@@ -112,7 +123,8 @@ registerLocaleData(localeFr);
     ProjectionService,
     UserService,
     FrontGuard,
-    BackGuard
+    BackGuard,
+    ReservationService
   ],
   bootstrap: [AppComponent]
 })

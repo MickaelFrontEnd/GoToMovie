@@ -5,7 +5,7 @@
           <strong class="card-title">Navigation</strong>
       </div>
       <div class="card-body">
-        <a routerLink="/movies/list" style="text-decoration: underline">Liste des films</a>
+        <a href="javascript:history.back();" style="text-decoration: underline;">Liste des films</a>
       </div>
     </div>
     <div class="card">
@@ -31,7 +31,7 @@
               <li>Acteur(s): {{ movie ? movie.movieActor : '' }}</li>
               <li>Réalisateur(s): {{ movie ? movie.movieDirector : '' }}</li>
             </ul>
-            <button *ngIf="!isUserBackOffice" type="button" name="button" class="btn btn-success">Reserver mes places</button>
+            <a *ngIf="!isUserBackOffice" routerLink="/projections/reservation/{{ projection }}" class="btn btn-success">Reserver mon place</a>
           </div>
         </div>
       </div>

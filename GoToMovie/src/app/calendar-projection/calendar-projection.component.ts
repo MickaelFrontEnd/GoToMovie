@@ -3,7 +3,6 @@ import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMo
 import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent, CalendarView } from 'angular-calendar';
 import ProjectionService from '../services/projection.service';
 import ProjectionModel from '../models/projection.model';
-import { ProjectionListModel } from '../models/projection.model';
 import { Subject, Subscription } from 'rxjs';
 import { Router } from '@angular/router';
 
@@ -16,7 +15,7 @@ export class CalendarProjectionComponent implements OnInit, OnDestroy {
 
   viewDate:Date = new Date();
   events: Array<CalendarEvent<{ incrementsBadgeTotal: boolean }>> = [];
-  listProjections: ProjectionListModel[];
+  listProjections: ProjectionModel[];
   refresh: Subject<any> = new Subject();
   activeDayIsOpen:boolean = false;
   subscription: Subscription;
@@ -35,7 +34,7 @@ export class CalendarProjectionComponent implements OnInit, OnDestroy {
 
   subscribe() {
     this.subscription = this.projectionService.getSubject.subscribe(
-      (data: ProjectionListModel[]) => {
+      (data: ProjectionModel[]) => {
         this.listProjections = data;
         this.appendDataOnCalendar();
       },
